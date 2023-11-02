@@ -38,11 +38,17 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Container(
           height: tinggi,
           width: lebar,
+          child: Text("asd"),
           decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              Color(0xFF7512B2),
-              Color(0xFFBD94D7),
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF7512B2),
+                Color(0xFFBD94D7),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
         ),
       ),
