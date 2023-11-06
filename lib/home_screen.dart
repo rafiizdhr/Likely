@@ -1,9 +1,7 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xFF7512B2),
+        backgroundColor: const Color(0xFF7512B2),
         appBar: AppBar(
           toolbarHeight: 80,
           actions: [
@@ -28,11 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.only(right: 25),
               child: IconButton(
                 onPressed: () {},
-                icon: Icon(Icons.menu, size: 25),
+                icon: const Icon(Icons.menu, size: 25),
               ),
             ),
           ],
-          title: Text(
+          title: const Text(
             "Likely",
             style: TextStyle(fontSize: 30),
           ),
@@ -44,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           height: tinggi,
           width: lebar,
           child: Example(),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
                 Color(0xFF7512B2),
@@ -63,15 +61,13 @@ class _HomeScreenState extends State<HomeScreen> {
 class Example extends StatelessWidget {
   List<Color> kolor = [Colors.blue, Colors.green, Colors.yellow];
 
+  Example({super.key});
+
   @override
   Widget build(BuildContext context) {
-    List<Container> woy = List.generate(
+    List<Kartu> woy = List.generate(
       10,
-      (index) => Container(
-        alignment: Alignment.center,
-        child: Text(index.toString()),
-        color: kolor[Random().nextInt(4)],
-      ),
+      (index) => Kartu(warna: kolor[Random().nextInt(4)]),
     );
 
     return AppinioSwiper(
@@ -82,7 +78,7 @@ class Example extends StatelessWidget {
       cardsBuilder: (BuildContext context, int index) {
         return woy[index];
       },
-      swipeOptions: AppinioSwipeOptions.symmetric(horizontal: true),
+      swipeOptions: const AppinioSwipeOptions.symmetric(horizontal: true),
       onSwipe: (index, direction) {
         if (direction == AppinioSwiperDirection.right) {}
       },
