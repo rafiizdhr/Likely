@@ -18,7 +18,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xFF7512B2),
+        extendBody: true,
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
           toolbarHeight: 80,
           actions: [
@@ -41,7 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Container(
           height: tinggi,
           width: lebar,
-          child: Example(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 70),
+            child: Example(),
+          ),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -67,7 +71,7 @@ class Example extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Kartu> woy = List.generate(
       10,
-      (index) => Kartu(warna: kolor[Random().nextInt(4)]),
+      (index) => Kartu(warna: kolor[Random().nextInt(3)]),
     );
 
     return AppinioSwiper(

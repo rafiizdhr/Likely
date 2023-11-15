@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "104229354879",
+    "project_id": "likely-15bcc",
+    "storage_bucket": "likely-15bcc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104229354879:android:06c120d871207545582e4a",
+        "android_client_info": {
+          "package_name": "com.example.pa_mobile_dating"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXBmCFpIGyV9NPKklDwIgWM25oqboRONA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
