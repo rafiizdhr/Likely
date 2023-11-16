@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:flutter/material.dart';
 
@@ -16,45 +14,44 @@ class _HomeScreenState extends State<HomeScreen> {
     var lebar = MediaQuery.of(context).size.width;
     var tinggi = MediaQuery.of(context).size.height;
 
-    return SafeArea(
-      child: Scaffold(
-        extendBody: true,
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          toolbarHeight: 80,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 25),
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.menu, size: 25),
-              ),
+    return Scaffold(
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+       appBar: AppBar(
+        foregroundColor: Colors.white,
+        toolbarHeight: 80,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 25),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.menu, size: 25),
             ),
-          ],
-          title: const Text(
-            "Likely",
-            style: TextStyle(fontSize: 30),
           ),
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
+        ],
+        title: const Text(
+          "Likely",
+          style: TextStyle(fontSize: 30),
         ),
-        body: Container(
-          height: tinggi,
-          width: lebar,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 70),
-            child: Example(),
-          ),
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFF7512B2),
-                Color(0xFFBD94D7),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+      ),
+      body: Container(
+        height: tinggi,
+        width: lebar,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 80),
+          child: Example(),
+        ),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF7512B2),
+              Color(0xFFBD94D7),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
         ),
       ),
@@ -63,16 +60,14 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class Example extends StatelessWidget {
-  List<Color> kolor = [Colors.blue, Colors.green, Colors.yellow];
-
   Example({super.key});
+    List<Kartu> woy = List.generate(
+      10,
+      (index) => Kartu(warna: Colors.white, teks: index.toString(),),
+    );
 
   @override
   Widget build(BuildContext context) {
-    List<Kartu> woy = List.generate(
-      10,
-      (index) => Kartu(warna: kolor[Random().nextInt(3)]),
-    );
 
     return AppinioSwiper(
       cardsCount: 10,
@@ -93,15 +88,20 @@ class Example extends StatelessWidget {
 
 class Kartu extends StatelessWidget {
   Color warna;
+  String teks;
 
-  Kartu({super.key, required this.warna});
+  Kartu({super.key, required this.warna, required this.teks});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color: warna,
+        boxShadow: [BoxShadow(color: Colors.black12, spreadRadius: 1, blurRadius: 30)]
+      ),
       alignment: Alignment.center,
-      child: const Text('1'),
-      color: warna,
+      child: Text(teks),
     );
   }
 }
