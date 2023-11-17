@@ -1,5 +1,4 @@
-import 'package:appinio_swiper/appinio_swiper.dart';
-import 'package:flutter/material.dart';
+part of 'pages.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
