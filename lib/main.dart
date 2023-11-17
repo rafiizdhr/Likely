@@ -1,4 +1,6 @@
 import 'package:Likely/bottom_navbar.dart';
+import 'package:Likely/signin.dart';
+import 'package:Likely/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,8 +35,10 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             routes: {
               "/navbar": (ctx) => BottomNavBar(),
+              "/Signup": (ctx) => Signup(),
+              "/Signin": (ctx) => Signin(),
             },
-            initialRoute: "/navbar",
+            initialRoute: "/Signin",
           );
         },
       ),
