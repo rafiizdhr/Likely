@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
-       appBar: AppBar(
+      appBar: AppBar(
         foregroundColor: Colors.white,
         toolbarHeight: 80,
         actions: [
@@ -61,14 +61,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class Example extends StatelessWidget {
   Example({super.key});
-    List<Kartu> woy = List.generate(
-      10,
-      (index) => Kartu(warna: Colors.white, teks: index.toString(),),
-    );
+  List<Kartu> woy = List.generate(
+    10,
+    (index) => Kartu(
+      warna: Colors.white,
+      teks: index.toString(),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
-
     return AppinioSwiper(
       cardsCount: 10,
       onSwiping: (AppinioSwiperDirection direction) {
@@ -96,10 +98,11 @@ class Kartu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        color: warna,
-        boxShadow: [BoxShadow(color: Colors.black12, spreadRadius: 1, blurRadius: 30)]
-      ),
+          borderRadius: BorderRadius.circular(30),
+          color: warna,
+          boxShadow: [
+            BoxShadow(color: Colors.black12, spreadRadius: 1, blurRadius: 30)
+          ]),
       alignment: Alignment.center,
       child: Text(teks),
     );

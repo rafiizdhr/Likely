@@ -1,5 +1,5 @@
-import 'package:Likely/signup.dart';
 import 'package:flutter/material.dart';
+import '../pages/signup.dart';
 
 class Signin extends StatefulWidget {
   const Signin({Key? key});

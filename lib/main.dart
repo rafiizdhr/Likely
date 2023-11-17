@@ -1,11 +1,11 @@
-import 'package:Likely/bottom_navbar.dart';
-import 'package:Likely/signin.dart';
-import 'package:Likely/signup.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import '../widgets/bottom_navbar.dart';
+import '../pages/signup.dart';
+import '../pages/signin.dart';
+import '../pages/profile_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,8 +37,9 @@ class MyApp extends StatelessWidget {
               "/navbar": (ctx) => BottomNavBar(),
               "/Signup": (ctx) => Signup(),
               "/Signin": (ctx) => Signin(),
+              "/profile": (ctx) => ProfileSettingScreen()
             },
-            initialRoute: "/Signin",
+            initialRoute: "/navbar",
           );
         },
       ),

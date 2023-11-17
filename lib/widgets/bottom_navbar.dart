@@ -1,9 +1,9 @@
-import 'package:Likely/chat_page.dart';
-import 'package:Likely/home_screen.dart';
-import 'package:Likely/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
+import '../pages/chat_page.dart';
+import '../pages/home_screen.dart';
+import '../pages/profile_page.dart';
 
 class PageData extends ChangeNotifier {
   int idxPage = 0;
@@ -11,7 +11,7 @@ class PageData extends ChangeNotifier {
   List<Screen> pages = [
     Screen(page: HomeScreen()),
     Screen(page: ChatPage()),
-    Screen(page: ProfilePage()),
+    Screen(page: ProfileSettingScreen()),
   ];
 
   void changeIndex(int index) {
