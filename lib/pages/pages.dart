@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:appinio_swiper/appinio_swiper.dart';
 
-
 part 'chat_page.dart';
 part 'home_screen.dart';
 part 'profile_page.dart';

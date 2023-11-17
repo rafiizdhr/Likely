@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
               "/Signin": (ctx) => Signin(),
               "/profile": (ctx) => ProfileSettingScreen()
             },
-            initialRoute: "/navbar",
+            initialRoute: "/Signin",
           );
         },
       ),

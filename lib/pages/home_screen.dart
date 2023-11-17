@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
         width: lebar,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 80),
-          child: Example(),
+          child: Swiper(),
         ),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -58,8 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class Example extends StatelessWidget {
-  Example({super.key});
+class Swiper extends StatelessWidget {
+  Swiper({super.key});
   List<Kartu> woy = List.generate(
     10,
     (index) => Kartu(
