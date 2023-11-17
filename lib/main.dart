@@ -1,3 +1,4 @@
+import 'package:Likely/pages/chat_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
               "/navbar": (ctx) => BottomNavBar(),
               "/Signup": (ctx) => Signup(),
               "/Signin": (ctx) => Signin(),
-              "/profile": (ctx) => ProfileSettingScreen()
+              "/profile": (ctx) => ProfileSettingScreen(),
+              "/chat": (ctx) => ChatField(),
             },
             initialRoute: "/navbar",
           );
