@@ -89,7 +89,7 @@ class _SigninState extends State<Signin> {
                       String email = emailController.text;
                       String password = passwordController.text;
 
-                      Navigator.popAndPushNamed(context, "/navbar");
+                      Navigator.popAndPushNamed(context, "/Home");
                     },
                     style: ButtonStyle(
                       fixedSize: MaterialStateProperty.all<Size>(Size(300, 45)),

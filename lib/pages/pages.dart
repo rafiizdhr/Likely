@@ -1,7 +1,11 @@
 import 'dart:io';
+import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import '../providers/providers.dart';
 import '../widgets/widgets.dart';
-import '../models/users.dart';
+import '../models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
