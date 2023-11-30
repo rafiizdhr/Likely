@@ -25,11 +25,17 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (BuildContext context) => PageData(),
+        ),
+        ChangeNotifierProvider(
+          create: (BuildContext context) => ThemeModeData(),
         )
       ],
       child: Builder(
         builder: (context) {
           return MaterialApp(
+            theme: ThemeData(),
+            darkTheme: ThemeData(brightness: Brightness.dark),
+            themeMode: Provider.of<ThemeModeData>(context).themeMode,
             debugShowCheckedModeBanner: false,
             routes: {
               "/navbar": (ctx) => BottomNavBar(),

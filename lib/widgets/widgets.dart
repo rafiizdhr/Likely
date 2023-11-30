@@ -8,3 +8,4 @@ import '../pages/pages.dart';
 
 part 'bottom_navbar.dart';
 part 'profile_widget.dart';
+part 'drawer.dart';
