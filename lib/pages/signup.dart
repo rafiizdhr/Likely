@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import '../pages/signin.dart';
+part of 'pages.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key});
