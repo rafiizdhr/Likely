@@ -89,7 +89,11 @@ class _SigninState extends State<Signin> {
                       String email = emailController.text;
                       String password = passwordController.text;
 
+<<<<<<< HEAD
                       Navigator.popAndPushNamed(context, "/Home");
+=======
+                      Navigator.pushReplacementNamed(context, '/navbar');
+>>>>>>> parent of 9483b1a (Swipe Swipe Swipe (tapi belum provider))
                     },
                     style: ButtonStyle(
                       fixedSize: MaterialStateProperty.all<Size>(Size(300, 45)),
