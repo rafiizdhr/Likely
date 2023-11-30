@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../pages/pages.dart';
+import '../provider/providers.dart';
 
 part 'bottom_navbar.dart';
 part 'profile_widget.dart';

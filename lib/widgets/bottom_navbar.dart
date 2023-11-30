@@ -1,34 +1,5 @@
 part of 'widgets.dart';
 
-class PageData extends ChangeNotifier {
-  int idxPage = 0;
-
-  List<Screen> pages = [
-    Screen(page: HomeScreen()),
-    Screen(page: ChatPage()),
-    Screen(page: ProfileSettingScreen()),
-  ];
-
-  void changeIndex(int index) {
-    idxPage = index;
-    notifyListeners();
-  }
-
-  Widget display() {
-    return pages[idxPage].show_page();
-  }
-}
-
-class Screen {
-  Widget page;
-
-  Screen({required this.page});
-
-  Widget show_page() {
-    return page;
-  }
-}
-
 class MyWidget extends StatelessWidget {
   const MyWidget({super.key});
 
@@ -68,7 +39,7 @@ class BottomNavBar extends StatelessWidget {
           ),
           child: BottomNavigationBar(
             fixedColor: Colors.deepPurple,
-            backgroundColor: Colors.white,
+            backgroundColor: Theme.of(context).primaryColor,
             onTap: (value) {
               Provider.of<PageData>(context, listen: false).changeIndex(value);
             },

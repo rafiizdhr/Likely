@@ -1,10 +1,10 @@
-import 'package:Likely/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-import '../pages/pages.dart';
-import '../widgets/widgets.dart';
+import 'pages/pages.dart';
+import 'widgets/widgets.dart';
+import 'provider/providers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +26,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (BuildContext context) => PageData(),
         ),
+        ChangeNotifierProvider(
+          create: (BuildContext context) => ThemeModeData(),
+        ),
       ],
       child: Builder(
         builder: (context) {
@@ -35,7 +38,7 @@ class MyApp extends StatelessWidget {
             themeMode: Provider.of<ThemeModeData>(context).themeMode,
             debugShowCheckedModeBanner: false,
             routes: {
-              "/navbar": (ctx) => BottomNavBar(),
+              "/Home": (ctx) => BottomNavBar(),
               "/Signup": (ctx) => Signup(),
               "/Signin": (ctx) => Signin(),
               "/profile": (ctx) => ProfileSettingScreen(),

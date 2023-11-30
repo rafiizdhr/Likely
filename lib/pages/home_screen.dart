@@ -72,17 +72,16 @@ class _SwiperState extends State<Swiper> {
   DocumentSnapshot? lastDocument;
 
   Future<List<DataUser>> fetchData() async {
+    int randomStartingPoint = Random().nextInt(100);
     int limitPerLoop = 10;
 
     Query<Map<String, dynamic>> baseQuery =
         FirebaseFirestore.instance.collection('users');
 
     QuerySnapshot<Map<String, dynamic>> querySnapshot = await baseQuery.get();
-
     List<DocumentSnapshot<Map<String, dynamic>>> allDocuments =
         querySnapshot.docs;
 
-    // Shuffle the documents
     allDocuments.shuffle();
 
     // Use the shuffled documents for the current loop
@@ -155,7 +154,7 @@ class _SwiperState extends State<Swiper> {
         } else {
           List<Kartu> cards = snapshot.data!.map((user) {
             return Kartu(
-              warna: Colors.white,
+              warna: Theme.of(context).primaryColor,
               teks: user.nama ?? "",
             );
           }).toList();

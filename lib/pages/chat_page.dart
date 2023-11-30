@@ -10,7 +10,6 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       body: SingleChildScrollView(
@@ -39,10 +38,6 @@ class _ChatPageState extends State<ChatPage> {
           ],
         ),
       ),
-=======
-    return const Scaffold(
-      body: Center(child: Text("Chat Page")),
->>>>>>> parent of 9483b1a (Swipe Swipe Swipe (tapi belum provider))
     );
   }
 
