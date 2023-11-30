@@ -71,28 +71,29 @@ class _SwiperState extends State<Swiper> {
   DocumentSnapshot? lastDocument;
 
   Future<List<DataUser>> fetchData() async {
-    int randomStartingPoint = Random().nextInt(100);
     int limitPerLoop = 10;
 
     Query<Map<String, dynamic>> baseQuery =
         FirebaseFirestore.instance.collection('users');
 
-    // Check if lastDocument is not null before using startAfterDocument
-    if (lastDocument != null) {
-      baseQuery = baseQuery.orderBy('lokasi').startAfterDocument(lastDocument!);
-    } else {
-      baseQuery = baseQuery.orderBy('lokasi');
-    }
+    QuerySnapshot<Map<String, dynamic>> querySnapshot = await baseQuery.get();
 
-    QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await baseQuery.limit(limitPerLoop).get();
+    List<DocumentSnapshot<Map<String, dynamic>>> allDocuments =
+        querySnapshot.docs;
 
-    lastDocument =
-        querySnapshot.docs.isNotEmpty ? querySnapshot.docs.last : null;
+    // Shuffle the documents
+    allDocuments.shuffle();
+
+    // Use the shuffled documents for the current loop
+    List<DocumentSnapshot<Map<String, dynamic>>> currentDocuments =
+        allDocuments.sublist(0, min(limitPerLoop, allDocuments.length));
+
+    // Update lastDocument for pagination
+    lastDocument = currentDocuments.isNotEmpty ? currentDocuments.last : null;
 
     List<String> likedUserIds = await getLikedUserIds(currentUserId);
 
-    return querySnapshot.docs
+    return currentDocuments
         .where(
             (doc) => doc.id != currentUserId && !likedUserIds.contains(doc.id))
         .map((doc) {
@@ -167,8 +168,8 @@ class _SwiperState extends State<Swiper> {
             onSwipe: (index, direction) {
               if (direction == AppinioSwiperDirection.right) {
                 // Handle right swipe
-                String likedUserName = snapshot.data![index-1].nama ?? "";
-                String likedUserIds = snapshot.data![index-1].id ?? "";
+                String likedUserName = snapshot.data![index - 1].nama ?? "";
+                String likedUserIds = snapshot.data![index - 1].id ?? "";
                 addLikedUserNameToLikes(
                     currentUserId, likedUserName, likedUserIds);
               }
