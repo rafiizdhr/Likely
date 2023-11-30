@@ -117,6 +117,35 @@ class _SwiperState extends State<Swiper> {
         .set({"nama": likedUserName});
   }
 
+  Future<void> checkAndAddMatch(
+      String userId, String likedUserId, String likedUsername) async {
+    if (userId != null) {
+      final likedDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(likedUserId)
+          .collection('like')
+          .doc(userId)
+          .get();
+
+      if (likedDoc.exists) {
+        // Tambahkan ke koleksi "matches" di kedua pengguna
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .collection('matches')
+            .doc(likedUserId)
+            .set({'nama': likedUsername});
+
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(likedUserId)
+            .collection('matches')
+            .doc(userId)
+            .set({'nama': likedUsername});
+      }
+    }
+  }
+
   Future<List<String>> getLikedUserIds(String currentUserId) async {
     QuerySnapshot<Map<String, dynamic>> likedUsersQuery =
         await FirebaseFirestore.instance
@@ -165,12 +194,14 @@ class _SwiperState extends State<Swiper> {
               return cards[index];
             },
             swipeOptions: const AppinioSwipeOptions.symmetric(horizontal: true),
-            onSwipe: (index, direction) {
+            onSwipe: (index, direction) async {
               if (direction == AppinioSwiperDirection.right) {
                 // Handle right swipe
                 String likedUserName = snapshot.data![index - 1].nama ?? "";
                 String likedUserIds = snapshot.data![index - 1].id ?? "";
-                addLikedUserNameToLikes(
+                await addLikedUserNameToLikes(
+                    currentUserId, likedUserName, likedUserIds);
+                await checkAndAddMatch(
                     currentUserId, likedUserName, likedUserIds);
               }
             },
