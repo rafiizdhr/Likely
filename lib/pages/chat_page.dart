@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'pages.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});

@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import '../pages/signup.dart';
+part of 'pages.dart';
 
 class Signin extends StatefulWidget {
   const Signin({Key? key});
@@ -90,36 +89,7 @@ class _SigninState extends State<Signin> {
                       String email = emailController.text;
                       String password = passwordController.text;
 
-                      // Lakukan proses login sesuai kebutuhan
-                      // ...
-
-                      // Setelah login berhasil, bisa redirect ke halaman lain
-                      // ...
-
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text('Signin Successful'),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Email: $email'),
-                                Text('Password: $password'),
-                              ],
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text('OK'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                      Navigator.pushReplacementNamed(context, '/navbar');
                     },
                     style: ButtonStyle(
                       fixedSize: MaterialStateProperty.all<Size>(Size(300, 45)),

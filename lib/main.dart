@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-import '../widgets/bottom_navbar.dart';
-import '../pages/signup.dart';
-import '../pages/signin.dart';
-import '../pages/profile_page.dart';
+import '../pages/pages.dart';
+import '../widgets/widgets.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +30,6 @@ class MyApp extends StatelessWidget {
       child: Builder(
         builder: (context) {
           return MaterialApp(
-            // home: HomeScreen(),
             debugShowCheckedModeBanner: false,
             routes: {
               "/navbar": (ctx) => BottomNavBar(),
@@ -41,7 +38,7 @@ class MyApp extends StatelessWidget {
               "/profile": (ctx) => ProfileSettingScreen(),
               "/chat": (ctx) => ChatField(),
             },
-            initialRoute: "/navbar",
+            initialRoute: "/Signin",
           );
         },
       ),
