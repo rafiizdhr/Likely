@@ -16,18 +16,19 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
+      endDrawer: MyDrawer(),
       appBar: AppBar(
         foregroundColor: Colors.white,
         toolbarHeight: 80,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 25),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.menu, size: 25),
-            ),
-          ),
-        ],
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.only(right: 25),
+        //     child: IconButton(
+        //       onPressed: drwr,
+        //       icon: const Icon(Icons.menu, size: 25),
+        //     ),
+        //   ),
+        // ],
         title: const Text(
           "Likely",
           style: TextStyle(fontSize: 30),
@@ -204,11 +205,12 @@ class Kartu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: warna,
-          boxShadow: [
-            BoxShadow(color: Colors.black12, spreadRadius: 1, blurRadius: 30)
-          ]),
+        borderRadius: BorderRadius.circular(30),
+        color: warna,
+        boxShadow: [
+          BoxShadow(color: Colors.black12, spreadRadius: 1, blurRadius: 30)
+        ],
+      ),
       alignment: Alignment.center,
       child: Text(teks),
     );

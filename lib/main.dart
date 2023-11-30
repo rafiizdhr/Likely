@@ -1,10 +1,10 @@
 import 'package:Likely/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import '../widgets/widgets.dart';
+import 'package:firebase_core/firebase_core.dart';
 import '../pages/pages.dart';
+import '../widgets/widgets.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +17,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -30,12 +30,16 @@ class MyApp extends StatelessWidget {
       child: Builder(
         builder: (context) {
           return MaterialApp(
+            theme: ThemeData(),
+            darkTheme: ThemeData(brightness: Brightness.dark),
+            themeMode: Provider.of<ThemeModeData>(context).themeMode,
             debugShowCheckedModeBanner: false,
             routes: {
-              "/Home": (ctx) => BottomNavBar(),
+              "/navbar": (ctx) => BottomNavBar(),
               "/Signup": (ctx) => Signup(),
               "/Signin": (ctx) => Signin(),
-              "/profile": (ctx) => ProfileSettingScreen()
+              "/profile": (ctx) => ProfileSettingScreen(),
+              "/chat": (ctx) => ChatField(),
             },
             initialRoute: "/Signin",
           );
