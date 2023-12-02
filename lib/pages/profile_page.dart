@@ -1,19 +1,13 @@
 part of 'pages.dart';
 
-class ProfileSettingScreen extends StatefulWidget {
-  const ProfileSettingScreen({Key? key}) : super(key: key);
+class Profile extends StatefulWidget {
+  const Profile({Key? key}) : super(key: key);
 
   @override
-  State<ProfileSettingScreen> createState() => _ProfileSettingScreenState();
+  State<Profile> createState() => _ProfileState();
 }
 
-class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController homeController = TextEditingController();
-  TextEditingController businessController = TextEditingController();
-  TextEditingController shopController = TextEditingController();
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+class _ProfileState extends State<Profile> {
   final ImagePicker _picker = ImagePicker();
   File? selectedImage;
 
@@ -44,108 +38,12 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: Get.height * 0.33,
-                child: Stack(
-                  children: [
-                    ProfileWidget(),
-                    Align(
-                      alignment: AlignmentDirectional.center,
-                      child: InkWell(
-                        onTap: () {
-                          getImage(ImageSource.camera);
-                        },
-                        child: selectedImage == null
-                            ? Container(
-                                width: 120,
-                                height: 120,
-                                margin: EdgeInsets.only(bottom: 20),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Color(0xffD6D6D6)),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.camera_alt_outlined,
-                                    size: 40,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              )
-                            : Container(
-                                width: 120,
-                                height: 120,
-                                margin: EdgeInsets.only(bottom: 20),
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: FileImage(selectedImage!),
-                                        fit: BoxFit.fill),
-                                    shape: BoxShape.circle,
-                                    color: Color(0xffD6D6D6)),
-                              ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 23),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    children: [
-                      TextFieldWidget(
-                          'Name', Icons.person_outlined, nameController,
-                          (String? input) {
-                        if (input!.isEmpty) {
-                          return 'Name is required!';
-                        }
-
-                        if (input.length < 5) {
-                          return 'Please enter a valid name!';
-                        }
-                        return null;
-                      }, onTap: () async {}, readOnly: false),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextFieldWidget(
-                          'Age', Icons.nine_mp_outlined, homeController,
-                          (String? input) {
-                        if (input!.isEmpty) {
-                          return 'Age is required!';
-                        }
-                        return null;
-                      }, onTap: () async {}, readOnly: false),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextFieldWidget(
-                          'Location', Icons.location_city, businessController,
-                          (String? input) {
-                        if (input!.isEmpty) {
-                          return 'Location is required!';
-                        }
-                      }, onTap: () async {}, readOnly: false),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextFieldWidget('Gender', Icons.people, shopController,
-                          (String? input) {
-                        if (input!.isEmpty) {
-                          return 'Gender required!';
-                        }
-                        return null;
-                      }, onTap: () async {}, readOnly: false),
-                      const SizedBox(
-                        height: 250,
-                      ),
-                    ],
-                  ),
-                ),
-              )
+              EditImageProfile(),
+              SizedBox(height: 10),
+              AccountSettings(),
+              SizedBox(height: 25),
+              DiscoverySettings(),
+              SizedBox(height: 60),
             ],
           ),
         ),
@@ -203,17 +101,179 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
     );
   }
 
-  Widget greenButton(String title, Function onPressed) {
-    return MaterialButton(
-      minWidth: Get.width,
-      height: 50,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      color: CupertinoColors.activeGreen,
-      onPressed: () => onPressed(),
-      child: Text(
-        title,
-        style: GoogleFonts.poppins(
-            fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+  Widget EditImageProfile() => Container(
+        height: Get.height * 0.33,
+        child: Stack(
+          children: [
+            ProfileWidget(),
+            Align(
+              alignment: AlignmentDirectional.center,
+              child: InkWell(
+                onTap: () {
+                  getImage(ImageSource.camera);
+                },
+                child: selectedImage == null
+                    ? Container(
+                        width: 120,
+                        height: 120,
+                        margin: EdgeInsets.only(bottom: 20),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: Color(0xffD6D6D6)),
+                        child: Center(
+                          child: Icon(
+                            Icons.camera_alt_outlined,
+                            size: 40,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    : Container(
+                        width: 120,
+                        height: 120,
+                        margin: EdgeInsets.only(bottom: 20),
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: FileImage(selectedImage!),
+                                fit: BoxFit.fill),
+                            shape: BoxShape.circle,
+                            color: Color(0xffD6D6D6)),
+                      ),
+              ),
+            ),
+          ],
+        ),
+      );
+
+  Widget AccountSettings() => Container(
+        padding: EdgeInsets.symmetric(horizontal: 23),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Account Settings",
+                    style: GoogleFonts.poppins(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600)),
+                GestureDetector(
+                  onTap: () => Navigator.pushNamed(context, "/ProfileEdit"),
+                  child: Text("Edit",
+                      style: GoogleFonts.poppins(
+                          color: Color.fromARGB(255, 8, 111, 196),
+                          fontSize: 17)),
+                ),
+              ],
+            ),
+            SizedBox(height: 12),
+            kontener("Name", "Udin Syamsudin"),
+            SizedBox(height: 12),
+            kontener("Phone Number", "+62 81220902112"),
+            SizedBox(height: 12),
+            kontener("Date of Birth", "01-01-1999"),
+            SizedBox(height: 12),
+            kontener("Email", "udinsyam@gmail.com"),
+          ],
+        ),
+      );
+
+  Widget DiscoverySettings() => Container(
+        padding: EdgeInsets.symmetric(horizontal: 23),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Discovery Settings",
+                    style: GoogleFonts.poppins(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w600)),
+              ],
+            ),
+            SizedBox(height: 15),
+            Container(
+              width: 350,
+              height: 45,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(width: 2, color: Colors.black38),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Show Me",
+                      style: TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      "Women",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Color.fromARGB(255, 8, 111, 196)),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 12),
+            Container(
+              width: 350,
+              height: 85,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(width: 2, color: Colors.black38),
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Age Range",
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          "22 - 34",
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+
+  Container kontener(String kiri, String kanan) {
+    return Container(
+      width: 350,
+      height: 45,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(width: 2, color: Colors.black38),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              kiri,
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            Text(
+              kanan,
+              style: TextStyle(color: Color.fromARGB(255, 54, 51, 51)),
+            ),
+          ],
+        ),
       ),
     );
   }

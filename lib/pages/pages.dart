@@ -15,5 +15,6 @@ part 'chat_page.dart';
 part 'chat_field.dart';
 part 'home_screen.dart';
 part 'profile_page.dart';
+part 'editprofile_page.dart';
 part 'signin.dart';
 part 'signup.dart';

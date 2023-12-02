@@ -17,7 +17,7 @@ class PageData extends ChangeNotifier {
       case 1:
         return ChatPage(); // Replace with your ChatScreen widget
       case 2:
-        return ProfileSettingScreen(); // Replace with your ProfileScreen widget
+        return Profile(); // Replace with your ProfileScreen widget
       default:
         return Container(); // Default case, replace with appropriate widget
     }
