@@ -20,15 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         foregroundColor: Colors.white,
         toolbarHeight: 80,
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.only(right: 25),
-        //     child: IconButton(
-        //       onPressed: drwr,
-        //       icon: const Icon(Icons.menu, size: 25),
-        //     ),
-        //   ),
-        // ],
+        automaticallyImplyLeading: false,
         title: const Text(
           "Likely",
           style: TextStyle(fontSize: 30),
