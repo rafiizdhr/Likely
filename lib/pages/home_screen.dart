@@ -127,6 +127,38 @@ class _SwiperState extends State<Swiper> {
     return likedUsersQuery.docs.map((doc) => doc.id).toList();
   }
 
+  Future<bool> checkForMatch(String currentUserId, String likedUserIds) async {
+    DocumentSnapshot<Map<String, dynamic>> likedUserDoc =
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(likedUserIds)
+            .collection('like')
+            .doc(currentUserId)
+            .get();
+
+    return likedUserDoc.exists;
+  }
+
+  Future<void> addMatches(String likedUserIds) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUserId)
+        .collection("matches")
+        .doc(likedUserIds)
+        .set({"timestamp": DateTime.now()});
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(likedUserIds)
+        .collection("matches")
+        .doc(currentUserId)
+        .set({"timestamp": DateTime.now()});
+
+    await FirebaseFirestore.instance.collection('chats').doc().set({
+      "anggota": {currentUserId, likedUserIds},
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<DataUser>>(
@@ -165,13 +197,21 @@ class _SwiperState extends State<Swiper> {
               return cards[index];
             },
             swipeOptions: const AppinioSwipeOptions.symmetric(horizontal: true),
-            onSwipe: (index, direction) {
+            onSwipe: (index, direction) async {
               if (direction == AppinioSwiperDirection.right) {
                 // Handle right swipe
                 String likedUserName = snapshot.data![index - 1].nama ?? "";
                 String likedUserIds = snapshot.data![index - 1].id ?? "";
-                addLikedUserNameToLikes(
+                bool isMatch = await checkForMatch(currentUserId, likedUserIds);
+
+                // Add liked user to 'like' subcollection
+                await addLikedUserNameToLikes(
                     currentUserId, likedUserName, likedUserIds);
+
+                // If it's a match, add the current user to the liked user's 'match' subcollection
+                if (isMatch) {
+                  await addMatches(likedUserIds);
+                }
               }
             },
             onEnd: () {

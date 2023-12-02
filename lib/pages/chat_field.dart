@@ -5,6 +5,7 @@ class ChatField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
     var lebar = MediaQuery.of(context).size.width;
     var tinggi = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -15,7 +16,7 @@ class ChatField extends StatelessWidget {
               backgroundColor: Colors.amber,
             ),
             SizedBox(width: 10),
-            Text("Name"),
+            Text(arguments['chatName']),
           ],
         ),
         foregroundColor: Colors.black,

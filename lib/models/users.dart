@@ -14,4 +14,14 @@ class DataUser{
     required this.umur,
     required this.foto,
   });
+
+  factory DataUser.fromMap(Map<String, dynamic> map) {
+    return DataUser(
+      id: map['id'] ?? '',
+      nama: map['nama'] ?? '',
+      jenis_kelamin: map['jenis_kelamin'] ?? '',
+      umur: map['umur'] ?? 0,
+      foto: map['foto'] ?? '',
+    );
+  }
 }
