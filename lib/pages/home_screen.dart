@@ -57,7 +57,7 @@ class Swiper extends StatefulWidget {
 }
 
 class _SwiperState extends State<Swiper> {
-  String currentUserId = "fNCsjYWIcWVqoNFE5e0fQpgB8Sp2";
+  String currentUserId = "dg9FSY7e4WVh8erpJWC9ghdV7wA2";
 
   int swipeCounter = 0;
 

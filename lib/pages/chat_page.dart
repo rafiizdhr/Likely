@@ -9,7 +9,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final String currentUserId =
-      "fNCsjYWIcWVqoNFE5e0fQpgB8Sp2"; // Ganti dengan ID pengguna Anda
+      "dg9FSY7e4WVh8erpJWC9ghdV7wA2"; // Ganti dengan ID pengguna Anda
   late Stream<QuerySnapshot<Map<String, dynamic>>> chatsStream;
 
   @override
@@ -20,9 +20,9 @@ class _ChatPageState extends State<ChatPage> {
         .collection('chats')
         .where('anggota', arrayContains: currentUserId)
         .snapshots();
-    
+
     Provider.of<DataUserProvider>(context, listen: false)
-        .fetchOtherUsersChats("fNCsjYWIcWVqoNFE5e0fQpgB8Sp2");
+        .fetchOtherUsersChats(currentUserId);
   }
 
   @override
@@ -46,11 +46,15 @@ class _ChatPageState extends State<ChatPage> {
               ),
             );
           } else {
-            List<Widget> chatTiles = otherUsers.map((DataUser userData) {
+            List<Widget> chatTiles = List.generate(otherUsers.length, (index) {
+              DataUser userData = otherUsers[index];
+              String chatSnapshot = snapshot.data!.docs[index].id;
+
               return chatTile(
                 context,
                 userData.nama!,
                 userData.id!,
+                chatSnapshot,
               );
             }).toList();
 
@@ -85,6 +89,7 @@ class _ChatPageState extends State<ChatPage> {
     BuildContext context,
     String chatName,
     String otherUserId,
+    String docsid,
     // String lastMessage,
     // String lastMessageTime,
   ) {
@@ -93,6 +98,7 @@ class _ChatPageState extends State<ChatPage> {
         Navigator.pushNamed(context, "/chat", arguments: {
           'otherUserId': otherUserId,
           'chatName': chatName,
+          'chatId': docsid
         });
       },
       leading: Container(
