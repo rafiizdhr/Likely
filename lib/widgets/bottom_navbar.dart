@@ -38,8 +38,9 @@ class BottomNavBar extends StatelessWidget {
             topRight: Radius.circular(40.0),
           ),
           child: BottomNavigationBar(
-            fixedColor: Colors.deepPurple,
-            backgroundColor: Theme.of(context).primaryColor,
+            fixedColor: Theme.of(context).colorScheme.primary,
+            unselectedItemColor: Theme.of(context).colorScheme.tertiary,
+            backgroundColor: Theme.of(context).colorScheme.secondary,
             onTap: (value) {
               Provider.of<PageData>(context, listen: false).changeIndex(value);
             },

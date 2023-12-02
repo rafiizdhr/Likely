@@ -36,8 +36,8 @@ class MyApp extends StatelessWidget {
       child: Builder(
         builder: (context) {
           return MaterialApp(
-            theme: ThemeData(),
-            darkTheme: ThemeData(brightness: Brightness.dark),
+            theme: Provider.of<ThemeModeData>(context).display(false),
+            darkTheme: Provider.of<ThemeModeData>(context).display(true),
             themeMode: Provider.of<ThemeModeData>(context).themeMode,
             debugShowCheckedModeBanner: false,
             routes: {

@@ -20,15 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         foregroundColor: Colors.white,
         toolbarHeight: 80,
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.only(right: 25),
-        //     child: IconButton(
-        //       onPressed: drwr,
-        //       icon: const Icon(Icons.menu, size: 25),
-        //     ),
-        //   ),
-        // ],
+        automaticallyImplyLeading: false,
         title: const Text(
           "Likely",
           style: TextStyle(fontSize: 30),
@@ -115,6 +107,35 @@ class _SwiperState extends State<Swiper> {
         .collection('like')
         .doc(likedUserIds)
         .set({"nama": likedUserName});
+  }
+
+  Future<void> checkAndAddMatch(
+      String userId, String likedUserId, String likedUsername) async {
+    if (userId != null) {
+      final likedDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(likedUserId)
+          .collection('like')
+          .doc(userId)
+          .get();
+
+      if (likedDoc.exists) {
+        // Tambahkan ke koleksi "matches" di kedua pengguna
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .collection('matches')
+            .doc(likedUserId)
+            .set({'nama': likedUsername});
+
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(likedUserId)
+            .collection('matches')
+            .doc(userId)
+            .set({'nama': likedUsername});
+      }
+    }
   }
 
   Future<List<String>> getLikedUserIds(String currentUserId) async {
