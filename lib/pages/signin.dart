@@ -8,6 +8,7 @@ class Signin extends StatefulWidget {
 }
 
 class _SigninState extends State<Signin> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -85,11 +86,52 @@ class _SigninState extends State<Signin> {
                   SizedBox(height: 10),
                   // Tombol "Sign In"
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       String email = emailController.text;
                       String password = passwordController.text;
 
-                      Navigator.popAndPushNamed(context, "/Home");
+                      try {
+                        await _auth.signInWithEmailAndPassword(
+                          email: email,
+                          password: password,
+                        );
+
+                        Navigator.popAndPushNamed(context, "/Home");
+                      } catch (e) {
+                        // Handle specific Firebase authentication errors
+                        String errorMessage = 'Email/Password salah!';
+
+                        if (e is FirebaseAuthException) {
+                          switch (e.code) {
+                            case 'user-not-found':
+                              errorMessage = 'No user found for that email';
+                              break;
+                            case 'wrong-password':
+                              errorMessage =
+                                  'Wrong password provided for that user';
+                              break;
+                            // Add more cases as needed
+                          }
+                        }
+
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Error'),
+                              content: Text(errorMessage),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
                     },
                     style: ButtonStyle(
                       fixedSize: MaterialStateProperty.all<Size>(Size(300, 45)),

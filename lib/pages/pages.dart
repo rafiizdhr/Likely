@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import '../widgets/widgets.dart';
 import '../models/models.dart';

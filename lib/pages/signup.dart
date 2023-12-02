@@ -1,5 +1,7 @@
 part of 'pages.dart';
 
+// Make sure to add these imports
+
 class Signup extends StatefulWidget {
   const Signup({Key? key});
 
@@ -8,6 +10,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
@@ -107,30 +110,21 @@ class _SignupState extends State<Signup> {
                     ),
                   ),
                   SizedBox(height: 10),
-
-                  SizedBox(height: 10),
                   // Tombol "Sign Up"
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       String email = emailController.text;
                       String password = passwordController.text;
                       String confirmPassword = confirmPasswordController.text;
 
-                      // Validasi password
-                      if (password == confirmPassword) {
+                      // Email format validation
+                      if (!_isValidEmail(email)) {
                         showDialog(
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: Text('Signup Successful'),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Email: $email'),
-                                  Text('Password: $password'),
-                                ],
-                              ),
+                              title: Text('Error'),
+                              content: Text('Invalid email format'),
                               actions: [
                                 TextButton(
                                   onPressed: () {
@@ -142,6 +136,76 @@ class _SignupState extends State<Signup> {
                             );
                           },
                         );
+                        return;
+                      }
+
+                      // Validasi password
+                      if (password == confirmPassword) {
+                        try {
+                          await _auth.createUserWithEmailAndPassword(
+                            email: email,
+                            password: password,
+                          );
+
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Signup Successful'),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Email: $email'),
+                                    Text('Password: $password'),
+                                  ],
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        } catch (e) {
+                          // Handle specific Firebase authentication errors
+                          String errorMessage = 'Email/Password salah!';
+
+                          if (e is FirebaseAuthException) {
+                            switch (e.code) {
+                              case 'weak-password':
+                                errorMessage = 'The password is too weak';
+                                break;
+                              case 'email-already-in-use':
+                                errorMessage =
+                                    'The account already exists for that email';
+                                break;
+                              // Add more cases as needed
+                            }
+                          }
+
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('Error'),
+                                content: Text(errorMessage),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
                       } else {
                         // Menampilkan pesan jika password tidak cocok
                         showDialog(
@@ -186,5 +250,12 @@ class _SignupState extends State<Signup> {
         ],
       ),
     );
+  }
+
+  bool _isValidEmail(String email) {
+    // Simple email validation using regex
+    final RegExp emailRegex =
+        RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+    return emailRegex.hasMatch(email);
   }
 }
