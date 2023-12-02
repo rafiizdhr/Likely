@@ -20,15 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         foregroundColor: Colors.white,
         toolbarHeight: 80,
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.only(right: 25),
-        //     child: IconButton(
-        //       onPressed: drwr,
-        //       icon: const Icon(Icons.menu, size: 25),
-        //     ),
-        //   ),
-        // ],
+        automaticallyImplyLeading: false,
         title: const Text(
           "Likely",
           style: TextStyle(fontSize: 30),
@@ -65,7 +57,7 @@ class Swiper extends StatefulWidget {
 }
 
 class _SwiperState extends State<Swiper> {
-  String currentUserId = "fNCsjYWIcWVqoNFE5e0fQpgB8Sp2";
+  String currentUserId = "dg9FSY7e4WVh8erpJWC9ghdV7wA2";
 
   int swipeCounter = 0;
 
@@ -117,6 +109,35 @@ class _SwiperState extends State<Swiper> {
         .set({"nama": likedUserName});
   }
 
+  Future<void> checkAndAddMatch(
+      String userId, String likedUserId, String likedUsername) async {
+    if (userId != null) {
+      final likedDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(likedUserId)
+          .collection('like')
+          .doc(userId)
+          .get();
+
+      if (likedDoc.exists) {
+        // Tambahkan ke koleksi "matches" di kedua pengguna
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .collection('matches')
+            .doc(likedUserId)
+            .set({'nama': likedUsername});
+
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(likedUserId)
+            .collection('matches')
+            .doc(userId)
+            .set({'nama': likedUsername});
+      }
+    }
+  }
+
   Future<List<String>> getLikedUserIds(String currentUserId) async {
     QuerySnapshot<Map<String, dynamic>> likedUsersQuery =
         await FirebaseFirestore.instance
@@ -125,6 +146,38 @@ class _SwiperState extends State<Swiper> {
             .collection('like')
             .get();
     return likedUsersQuery.docs.map((doc) => doc.id).toList();
+  }
+
+  Future<bool> checkForMatch(String currentUserId, String likedUserIds) async {
+    DocumentSnapshot<Map<String, dynamic>> likedUserDoc =
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(likedUserIds)
+            .collection('like')
+            .doc(currentUserId)
+            .get();
+
+    return likedUserDoc.exists;
+  }
+
+  Future<void> addMatches(String likedUserIds) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUserId)
+        .collection("matches")
+        .doc(likedUserIds)
+        .set({"timestamp": DateTime.now()});
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(likedUserIds)
+        .collection("matches")
+        .doc(currentUserId)
+        .set({"timestamp": DateTime.now()});
+
+    await FirebaseFirestore.instance.collection('chats').doc().set({
+      "anggota": {currentUserId, likedUserIds},
+    });
   }
 
   @override
@@ -165,13 +218,21 @@ class _SwiperState extends State<Swiper> {
               return cards[index];
             },
             swipeOptions: const AppinioSwipeOptions.symmetric(horizontal: true),
-            onSwipe: (index, direction) {
+            onSwipe: (index, direction) async {
               if (direction == AppinioSwiperDirection.right) {
                 // Handle right swipe
                 String likedUserName = snapshot.data![index - 1].nama ?? "";
                 String likedUserIds = snapshot.data![index - 1].id ?? "";
-                addLikedUserNameToLikes(
+                bool isMatch = await checkForMatch(currentUserId, likedUserIds);
+
+                // Add liked user to 'like' subcollection
+                await addLikedUserNameToLikes(
                     currentUserId, likedUserName, likedUserIds);
+
+                // If it's a match, add the current user to the liked user's 'match' subcollection
+                if (isMatch) {
+                  await addMatches(likedUserIds);
+                }
               }
             },
             onEnd: () {

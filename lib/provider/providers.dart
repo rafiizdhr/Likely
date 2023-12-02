@@ -10,3 +10,5 @@ import '../pages/pages.dart';
 import '../models/models.dart';
 
 part 'page_data.dart';
+part 'user_provider.dart';
+part 'theme_mode_data.dart';

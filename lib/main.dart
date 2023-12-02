@@ -29,12 +29,15 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (BuildContext context) => ThemeModeData(),
         ),
+        ChangeNotifierProvider(
+          create: (BuildContext context) => DataUserProvider(),
+        ),
       ],
       child: Builder(
         builder: (context) {
           return MaterialApp(
-            theme: ThemeData(),
-            darkTheme: ThemeData(brightness: Brightness.dark),
+            theme: Provider.of<ThemeModeData>(context).display(false),
+            darkTheme: Provider.of<ThemeModeData>(context).display(true),
             themeMode: Provider.of<ThemeModeData>(context).themeMode,
             debugShowCheckedModeBanner: false,
             routes: {
