@@ -101,7 +101,7 @@ class _ChatFieldState extends State<ChatField> {
           //send button
           IconButton(
             onPressed: () => sendMessage(otherUserId, chatId),
-            icon: const Icon(Icons.arrow_upward, size: 40),
+            icon: const Icon(Icons.arrow_upward, size: 20),
           )
         ],
       ),
@@ -152,6 +152,8 @@ class _ChatFieldState extends State<ChatField> {
         ? Alignment.centerRight
         : Alignment.centerLeft;
 
+    DateTime awu = data['timestamp'].toDate();
+
     return Container(
       alignment: alignment,
       child: Padding(
@@ -162,13 +164,28 @@ class _ChatFieldState extends State<ChatField> {
               : CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.only(
+                  right: 50, top: 10, left: 10, bottom: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: Colors.blue,
               ),
-              child: Text(data['message'],
-                  style: const TextStyle(fontSize: 16, color: Colors.white)),
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Text(data['message'],
+                      style:
+                          const TextStyle(fontSize: 16, color: Colors.white)),
+                  Positioned(
+                    right: -42,
+                    bottom: -5,
+                    child: Text(
+                        awu.hour.toString() + "." + awu.minute.toString(),
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.white)),
+                  ),
+                ],
+              ),
             )
           ],
         ),

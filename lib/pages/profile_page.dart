@@ -193,7 +193,8 @@ class _ProfileState extends State<Profile> {
             ),
             SizedBox(height: 15),
             Container(
-              width: 350,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              width: MediaQuery.of(context).size.width,
               height: 45,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
@@ -220,7 +221,8 @@ class _ProfileState extends State<Profile> {
             ),
             SizedBox(height: 12),
             Container(
-              width: 350,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              width: MediaQuery.of(context).size.width,
               height: 85,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
@@ -253,7 +255,8 @@ class _ProfileState extends State<Profile> {
 
   Container kontener(String kiri, String kanan) {
     return Container(
-      width: 350,
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      width: MediaQuery.of(context).size.width,
       height: 45,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
