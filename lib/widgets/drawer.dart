@@ -26,6 +26,8 @@ class MyDrawer extends StatelessWidget {
               style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
             ),
             trailing: Switch(
+              activeColor: Colors.white,
+              inactiveThumbColor: Colors.black,
               value: isDark,
               onChanged: (bool value) {
                 Provider.of<ThemeModeData>(context, listen: false)

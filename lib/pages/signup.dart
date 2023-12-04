@@ -26,6 +26,16 @@ class _SignupState extends State<Signup> {
           Container(
             width: lebar,
             height: tinggi,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF7512B2),
+                  Color(0xFFBD94D7),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
           ),
           Center(
             child: SingleChildScrollView(
@@ -37,7 +47,7 @@ class _SignupState extends State<Signup> {
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                   SizedBox(height: 30),
@@ -46,7 +56,7 @@ class _SignupState extends State<Signup> {
                     width: 300,
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: TextField(
@@ -57,7 +67,7 @@ class _SignupState extends State<Signup> {
                         border: InputBorder.none,
                         icon: Icon(
                           Icons.email,
-                          color: Theme.of(context).iconTheme.color,
+                          color: Theme.of(context).colorScheme.tertiary,
                           size: Theme.of(context).iconTheme.size,
                         ),
                       ),
@@ -69,7 +79,7 @@ class _SignupState extends State<Signup> {
                     width: 300,
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: TextField(
@@ -80,7 +90,7 @@ class _SignupState extends State<Signup> {
                         border: InputBorder.none,
                         icon: Icon(
                           Icons.lock,
-                          color: Theme.of(context).iconTheme.color,
+                          color: Theme.of(context).colorScheme.tertiary,
                           size: Theme.of(context).iconTheme.size,
                         ),
                       ),
@@ -92,7 +102,7 @@ class _SignupState extends State<Signup> {
                     width: 300,
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: TextField(
@@ -103,7 +113,7 @@ class _SignupState extends State<Signup> {
                         border: InputBorder.none,
                         icon: Icon(
                           Icons.lock,
-                          color: Theme.of(context).iconTheme.color,
+                          color: Theme.of(context).colorScheme.tertiary,
                           size: Theme.of(context).iconTheme.size,
                         ),
                       ),
@@ -229,8 +239,14 @@ class _SignupState extends State<Signup> {
                     },
                     style: ButtonStyle(
                       fixedSize: MaterialStateProperty.all<Size>(Size(300, 45)),
+                      backgroundColor: MaterialStatePropertyAll(
+                        Theme.of(context).colorScheme.primary,
+                      ),
                     ),
-                    child: Text('Sign Up'),
+                    child: Text(
+                      'Sign Up',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                   SizedBox(height: 10),
                   // Pilihan untuk mendaftar (signup)
@@ -241,7 +257,12 @@ class _SignupState extends State<Signup> {
                         MaterialPageRoute(builder: (context) => Signin()),
                       );
                     },
-                    child: Text('Telah memiliki akun? Sign In'),
+                    child: Text(
+                      'Telah memiliki akun? Sign In',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
                   ),
                 ],
               ),

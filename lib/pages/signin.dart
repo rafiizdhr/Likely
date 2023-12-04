@@ -23,6 +23,16 @@ class _SigninState extends State<Signin> {
           Container(
             width: lebar,
             height: tinggi,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF7512B2),
+                  Color(0xFFBD94D7),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
           ),
           Center(
             child: SingleChildScrollView(
@@ -34,7 +44,7 @@ class _SigninState extends State<Signin> {
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                   SizedBox(height: 30),
@@ -43,7 +53,7 @@ class _SigninState extends State<Signin> {
                     width: 300,
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: TextField(
@@ -54,7 +64,7 @@ class _SigninState extends State<Signin> {
                         border: InputBorder.none,
                         icon: Icon(
                           Icons.email,
-                          color: Theme.of(context).iconTheme.color,
+                          color: Theme.of(context).colorScheme.tertiary,
                           size: Theme.of(context).iconTheme.size,
                         ),
                       ),
@@ -66,7 +76,7 @@ class _SigninState extends State<Signin> {
                     width: 300,
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: TextField(
@@ -77,7 +87,7 @@ class _SigninState extends State<Signin> {
                         border: InputBorder.none,
                         icon: Icon(
                           Icons.lock,
-                          color: Theme.of(context).iconTheme.color,
+                          color: Theme.of(context).colorScheme.tertiary,
                           size: Theme.of(context).iconTheme.size,
                         ),
                       ),
@@ -135,8 +145,14 @@ class _SigninState extends State<Signin> {
                     },
                     style: ButtonStyle(
                       fixedSize: MaterialStateProperty.all<Size>(Size(300, 45)),
+                      backgroundColor: MaterialStatePropertyAll(
+                        Theme.of(context).colorScheme.primary,
+                      ),
                     ),
-                    child: Text('Sign In'),
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                   SizedBox(height: 10),
                   // Pilihan untuk mendaftar (signup)
@@ -147,7 +163,12 @@ class _SigninState extends State<Signin> {
                         MaterialPageRoute(builder: (context) => Signup()),
                       );
                     },
-                    child: Text('Belum memiliki akun? Sign Up'),
+                    child: Text(
+                      'Belum memiliki akun? Sign Up',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
                   ),
                 ],
               ),
