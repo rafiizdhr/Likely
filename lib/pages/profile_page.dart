@@ -11,6 +11,15 @@ class _ProfileState extends State<Profile> {
   final ImagePicker _picker = ImagePicker();
   File? selectedImage;
 
+  Future<DataUser?>? currentUser;
+
+  void initState() {
+    super.initState();
+
+    Provider.of<DataUserProvider>(context, listen: false)
+        .fetchCurrentUser(FirebaseAuth.instance.currentUser!.uid);
+  }
+
   getImage(ImageSource source) async {
     final XFile? image = await _picker.pickImage(source: source);
     if (image != null) {
@@ -22,29 +31,24 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFF7512B2),
-              Color(0xFFBD94D7),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+      body: Background(
+        tinggi: MediaQuery.of(context).size.height,
+        lebar: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              EditImageProfile(),
-              SizedBox(height: 10),
-              AccountSettings(),
-              SizedBox(height: 25),
-              DiscoverySettings(),
-              SizedBox(height: 60),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                EditImageProfile(),
+                SizedBox(height: 30),
+                AccountSettings(),
+                SizedBox(height: 25),
+                DiscoverySettings(),
+                SizedBox(height: 60),
+              ],
+            ),
           ),
         ),
       ),
@@ -102,10 +106,13 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget EditImageProfile() => Container(
-        height: Get.height * 0.33,
+        height: Get.height * 0.3,
         child: Stack(
           children: [
-            ProfileWidget(),
+            Consumer<DataUserProvider>(
+                builder: (ctx, user, _) => ProfileWidget(context,
+                    subtitle:
+                        '${user.currentUsers.nama!}, ${user.currentUsers.umur!.toString()}')),
             Align(
               alignment: AlignmentDirectional.center,
               child: InkWell(
@@ -113,18 +120,18 @@ class _ProfileState extends State<Profile> {
                   getImage(ImageSource.camera);
                 },
                 child: selectedImage == null
-                    ? Container(
-                        width: 120,
-                        height: 120,
-                        margin: EdgeInsets.only(bottom: 20),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle, color: Color(0xffD6D6D6)),
-                        child: Center(
-                          child: Icon(
-                            Icons.camera_alt_outlined,
-                            size: 40,
-                            color: Colors.white,
-                          ),
+                    ? Consumer<DataUserProvider>(
+                        builder: (context, userProvider, _) => Container(
+                          width: 120,
+                          height: 120,
+                          margin: EdgeInsets.only(bottom: 20),
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                      userProvider.currentUsers.foto!),
+                                  fit: BoxFit.fill),
+                              shape: BoxShape.circle,
+                              color: Color(0xffD6D6D6)),
                         ),
                       )
                     : Container(
@@ -146,34 +153,36 @@ class _ProfileState extends State<Profile> {
 
   Widget AccountSettings() => Container(
         padding: EdgeInsets.symmetric(horizontal: 23),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Account Settings",
-                    style: GoogleFonts.poppins(
-                        color: Colors.black,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600)),
-                GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, "/ProfileEdit"),
-                  child: Text("Edit",
+        child: Consumer<DataUserProvider>(
+          builder: (context, userProvider, _) => Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Account Settings",
                       style: GoogleFonts.poppins(
-                          color: Color.fromARGB(255, 8, 111, 196),
-                          fontSize: 17)),
-                ),
-              ],
-            ),
-            SizedBox(height: 12),
-            kontener("Name", "Udin Syamsudin"),
-            SizedBox(height: 12),
-            kontener("Phone Number", "+62 81220902112"),
-            SizedBox(height: 12),
-            kontener("Date of Birth", "01-01-1999"),
-            SizedBox(height: 12),
-            kontener("Email", "udinsyam@gmail.com"),
-          ],
+                          color: Colors.white,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w600)),
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, "/ProfileEdit"),
+                    child: Text("Edit",
+                        style: GoogleFonts.poppins(
+                            color: Color.fromARGB(255, 8, 111, 196),
+                            fontSize: 17)),
+                  ),
+                ],
+              ),
+              SizedBox(height: 12),
+              kontener("Name", userProvider.currentUsers.nama!),
+              SizedBox(height: 12),
+              kontener("Phone Number", userProvider.currentUsers.nama!),
+              SizedBox(height: 12),
+              kontener("Date of Birth", userProvider.currentUsers.tgl_lahir!),
+              SizedBox(height: 12),
+              kontener("Umur", userProvider.currentUsers.umur!.toString()),
+            ],
+          ),
         ),
       );
 
@@ -186,7 +195,7 @@ class _ProfileState extends State<Profile> {
               children: [
                 Text("Discovery Settings",
                     style: GoogleFonts.poppins(
-                        color: Colors.black,
+                        color: Colors.white,
                         fontSize: 17,
                         fontWeight: FontWeight.w600)),
               ],
@@ -198,7 +207,7 @@ class _ProfileState extends State<Profile> {
               height: 45,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(width: 2, color: Colors.black38),
+                border: Border.all(width: 2, color: Colors.white),
               ),
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
@@ -207,13 +216,15 @@ class _ProfileState extends State<Profile> {
                   children: [
                     Text(
                       "Show Me",
-                      style: TextStyle(fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
                     ),
                     Text(
                       "Women",
                       style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          color: Color.fromARGB(255, 8, 111, 196)),
+                          fontWeight: FontWeight.w400, color: Colors.white),
                     ),
                   ],
                 ),
@@ -226,7 +237,7 @@ class _ProfileState extends State<Profile> {
               height: 85,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(width: 2, color: Colors.black38),
+                border: Border.all(width: 2, color: Colors.white),
               ),
               child: Column(
                 children: [
@@ -237,11 +248,13 @@ class _ProfileState extends State<Profile> {
                       children: [
                         Text(
                           "Age Range",
-                          style: TextStyle(fontWeight: FontWeight.w500),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, color: Colors.white),
                         ),
                         Text(
                           "22 - 34",
-                          style: TextStyle(fontWeight: FontWeight.w600),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, color: Colors.white),
                         ),
                       ],
                     ),
@@ -260,7 +273,7 @@ class _ProfileState extends State<Profile> {
       height: 45,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(width: 2, color: Colors.black38),
+        border: Border.all(width: 1, color: Colors.white),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -269,11 +282,12 @@ class _ProfileState extends State<Profile> {
           children: [
             Text(
               kiri,
-              style: TextStyle(fontWeight: FontWeight.w500),
+              style:
+                  TextStyle(fontWeight: FontWeight.w800, color: Colors.white),
             ),
             Text(
               kanan,
-              style: TextStyle(color: Color.fromARGB(255, 54, 51, 51)),
+              style: TextStyle(color: Colors.white),
             ),
           ],
         ),

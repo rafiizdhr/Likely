@@ -20,3 +20,6 @@ part 'profile_page.dart';
 part 'editprofile_page.dart';
 part 'signin.dart';
 part 'signup.dart';
+part 'signup2.dart';
+part 'signup3.dart';
+part 'signup4.dart';

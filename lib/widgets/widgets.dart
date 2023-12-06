@@ -10,3 +10,5 @@ import '../provider/providers.dart';
 part 'bottom_navbar.dart';
 part 'profile_widget.dart';
 part 'drawer.dart';
+part 'background.dart';
+part 'selectable_box.dart';

@@ -12,3 +12,5 @@ import '../models/models.dart';
 part 'page_data.dart';
 part 'user_provider.dart';
 part 'theme_mode_data.dart';
+part 'date_provider.dart';
+part 'gender_provider.dart';

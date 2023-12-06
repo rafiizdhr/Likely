@@ -17,95 +17,86 @@ class _ProfileEditState extends State<ProfileEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBody: true,
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          foregroundColor: Colors.white,
-          toolbarHeight: 80,
-          title: const Text(
-            "Edit Profile",
-            style: TextStyle(fontSize: 20),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        foregroundColor: Colors.white,
+        toolbarHeight: 80,
+        title: const Text(
+          "Edit Profile",
+          style: TextStyle(fontSize: 20),
         ),
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFF7512B2),
-                Color(0xFFBD94D7),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          child: ListView(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 23),
-                    child: Form(
-                      key: formKey,
-                      child: Column(
-                        children: [
-                          TextFieldWidget(
-                              'Name', Icons.person_outlined, nameController,
-                              (String? input) {
-                            if (input!.isEmpty) {
-                              return 'Name is required!';
-                            }
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+      ),
+      body: Background(
+        tinggi: MediaQuery.of(context).size.height,
+        lebar: MediaQuery.of(context).size.width,
+        child: ListView(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 23),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        TextFieldWidget(
+                            'Name', Icons.person_outlined, nameController,
+                            (String? input) {
+                          if (input!.isEmpty) {
+                            return 'Name is required!';
+                          }
 
-                            if (input.length < 5) {
-                              return 'Please enter a valid name!';
-                            }
-                            return null;
-                          }, onTap: () async {}, readOnly: false),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFieldWidget(
-                              'Date of Birth',
-                              Icons.nine_mp_outlined,
-                              homeController, (String? input) {
-                            if (input!.isEmpty) {
-                              return 'Age is required!';
-                            }
-                            return null;
-                          }, onTap: () async {}, readOnly: false),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFieldWidget('Location', Icons.location_city,
-                              businessController, (String? input) {
-                            if (input!.isEmpty) {
-                              return 'Location is required!';
-                            }
-                          }, onTap: () async {}, readOnly: false),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          TextFieldWidget(
-                              'Gender', Icons.people, shopController,
-                              (String? input) {
-                            if (input!.isEmpty) {
-                              return 'Gender required!';
-                            }
-                            return null;
-                          }, onTap: () async {}, readOnly: false),
-                        ],
-                      ),
+                          if (input.length < 5) {
+                            return 'Please enter a valid name!';
+                          }
+                          return null;
+                        }, onTap: () async {}, readOnly: false),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFieldWidget('Date of Birth', Icons.nine_mp_outlined,
+                            homeController, (String? input) {
+                          if (input!.isEmpty) {
+                            return 'Age is required!';
+                          }
+                          return null;
+                        }, onTap: () async {}, readOnly: false),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFieldWidget(
+                            'Location', Icons.location_city, businessController,
+                            (String? input) {
+                          if (input!.isEmpty) {
+                            return 'Location is required!';
+                          }
+                        }, onTap: () async {}, readOnly: false),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        TextFieldWidget('Gender', Icons.people, shopController,
+                            (String? input) {
+                          if (input!.isEmpty) {
+                            return 'Gender required!';
+                          }
+                          return null;
+                        }, onTap: () async {}, readOnly: false),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
-        ));
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   TextFieldWidget(String title, IconData iconData,

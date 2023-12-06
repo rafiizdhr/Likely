@@ -32,6 +32,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (BuildContext context) => DataUserProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (BuildContext context) => DateProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (BuildContext context) => GenderProvider(),
+        ),
       ],
       child: Builder(
         builder: (context) {

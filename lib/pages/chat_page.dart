@@ -8,8 +8,7 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  final String currentUserId =
-      "dg9FSY7e4WVh8erpJWC9ghdV7wA2"; // Ganti dengan ID pengguna Anda
+  String currentUserId = FirebaseAuth.instance.currentUser!.uid;
   late Stream<QuerySnapshot<Map<String, dynamic>>> chatsStream;
 
   @override
@@ -31,31 +30,21 @@ class _ChatPageState extends State<ChatPage> {
     var lebar = MediaQuery.of(context).size.width;
     var tinggi = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Container(
-        width: lebar,
-        height: tinggi,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFF7512B2),
-              Color(0xFFBD94D7),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+      body: Background(
+        lebar: lebar,
+        tinggi: tinggi,
         child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
           stream: chatsStream,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
               return Center(
                 child: Text(
-                  'Tidak ada obrolan.',
-                  style: TextStyle(fontSize: 18),
+                  'No Matches',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               );
             } else {

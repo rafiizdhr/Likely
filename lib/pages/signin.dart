@@ -23,11 +23,11 @@ class _SigninState extends State<Signin> {
           Container(
             width: lebar,
             height: tinggi,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color(0xFF7512B2),
-                  Color(0xFFBD94D7),
+                  Theme.of(context).colorScheme.primary,
+                  Theme.of(context).colorScheme.onPrimary,
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -44,7 +44,7 @@ class _SigninState extends State<Signin> {
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.secondary,
+                      color: Colors.white,
                     ),
                   ),
                   SizedBox(height: 30),
@@ -70,7 +70,7 @@ class _SigninState extends State<Signin> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 10),
                   // Input password
                   Container(
                     width: 300,
@@ -93,9 +93,10 @@ class _SigninState extends State<Signin> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   // Tombol "Sign In"
                   ElevatedButton(
+                    
                     onPressed: () async {
                       String email = emailController.text;
                       String password = passwordController.text;
@@ -146,27 +147,27 @@ class _SigninState extends State<Signin> {
                     style: ButtonStyle(
                       fixedSize: MaterialStateProperty.all<Size>(Size(300, 45)),
                       backgroundColor: MaterialStatePropertyAll(
-                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context).colorScheme.tertiary,
                       ),
                     ),
                     child: Text(
                       'Sign In',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Theme.of(context).colorScheme.secondary),
                     ),
                   ),
                   SizedBox(height: 10),
                   // Pilihan untuk mendaftar (signup)
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.popAndPushNamed(
                         context,
-                        MaterialPageRoute(builder: (context) => Signup()),
+                        '/Signup',
                       );
                     },
                     child: Text(
                       'Belum memiliki akun? Sign Up',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: Colors.white,
                       ),
                     ),
                   ),

@@ -11,7 +11,7 @@ class _ChatFieldState extends State<ChatField> {
   final TextEditingController _messageController = TextEditingController();
 
   String receiverUserID = "";
-  final String currentUserId = "dg9FSY7e4WVh8erpJWC9ghdV7wA2";
+  String currentUserId = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,8 @@ class _ChatFieldState extends State<ChatField> {
             Text(arguments['chatName']),
           ],
         ),
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.transparent,
+        foregroundColor: Theme.of(context).colorScheme.tertiary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 0,
       ),
       body: Column(

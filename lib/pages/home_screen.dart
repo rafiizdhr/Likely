@@ -29,22 +29,12 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
       ),
-      body: Container(
-        height: tinggi,
-        width: lebar,
+      body: Background(
+        tinggi: tinggi,
+        lebar: lebar,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 80),
           child: Swiper(),
-        ),
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFF7512B2),
-              Color(0xFFBD94D7),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
         ),
       ),
     );
@@ -57,14 +47,11 @@ class Swiper extends StatefulWidget {
 }
 
 class _SwiperState extends State<Swiper> {
-  String currentUserId = "dg9FSY7e4WVh8erpJWC9ghdV7wA2";
-
-  int swipeCounter = 0;
+  String currentUserId = FirebaseAuth.instance.currentUser!.uid;
 
   DocumentSnapshot? lastDocument;
 
   Future<List<DataUser>> fetchData() async {
-    int randomStartingPoint = Random().nextInt(100);
     int limitPerLoop = 10;
 
     Query<Map<String, dynamic>> baseQuery =
@@ -93,6 +80,7 @@ class _SwiperState extends State<Swiper> {
         id: doc.get('id'),
         nama: doc.get('nama'),
         jenis_kelamin: doc.get('jenis_kelamin'),
+        tgl_lahir: doc.get('tgl_lahir'),
         umur: doc.get('umur'),
         foto: doc.get('foto'),
       );
@@ -107,35 +95,6 @@ class _SwiperState extends State<Swiper> {
         .collection('like')
         .doc(likedUserIds)
         .set({"nama": likedUserName});
-  }
-
-  Future<void> checkAndAddMatch(
-      String userId, String likedUserId, String likedUsername) async {
-    if (userId != null) {
-      final likedDoc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(likedUserId)
-          .collection('like')
-          .doc(userId)
-          .get();
-
-      if (likedDoc.exists) {
-        // Tambahkan ke koleksi "matches" di kedua pengguna
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(userId)
-            .collection('matches')
-            .doc(likedUserId)
-            .set({'nama': likedUsername});
-
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(likedUserId)
-            .collection('matches')
-            .doc(userId)
-            .set({'nama': likedUsername});
-      }
-    }
   }
 
   Future<List<String>> getLikedUserIds(String currentUserId) async {
@@ -186,28 +145,21 @@ class _SwiperState extends State<Swiper> {
       future: fetchData(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-              child: Container(
-                  width: 100, height: 100, child: CircularProgressIndicator()));
+          return Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
-          return Center(
-              child: Container(
-                  width: 100,
-                  height: 100,
-                  child: Text('Error: ${snapshot.error}')));
+          return Center(child: Text('Error: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return Center(
-              child: Container(
-                  width: 100,
-                  height: 100,
-                  child: Text(
-                    'User Habis WKWKWK',
-                    textAlign: TextAlign.center,
-                  )));
+            child: Text(
+              'There\'s no user left',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
+          );
         } else {
           List<Kartu> cards = snapshot.data!.map((user) {
             return Kartu(
-              warna: Theme.of(context).primaryColor,
+              warna: Theme.of(context).colorScheme.secondary,
               teks: user.nama ?? "",
             );
           }).toList();

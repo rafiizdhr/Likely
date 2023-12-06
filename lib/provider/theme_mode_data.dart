@@ -16,9 +16,10 @@ class ThemeModeData extends ChangeNotifier {
       colorScheme: ColorScheme.fromSeed(
         seedColor: Color(0xFF7512B2),
         brightness: dark ? Brightness.dark : Brightness.light,
-        primary: dark ? Color(0xFF35155D) : Colors.purple[400],
-        secondary: dark ? Colors.black : Colors.white,
-        tertiary: dark ? Colors.white : Colors.black,
+        primary: dark ? Color(0xFF35155D) : Color.fromARGB(255, 224, 93, 248),
+        onPrimary: dark ? Color.fromARGB(255, 105, 29, 198) : Color.fromARGB(255, 146, 60, 199),
+        secondary: dark ? Color.fromARGB(255, 28, 11, 48) : Colors.white,
+        tertiary: dark ? Colors.white : Color.fromARGB(255, 28, 11, 48),
       ),
     );
   }
