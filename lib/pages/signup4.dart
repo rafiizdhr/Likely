@@ -25,6 +25,7 @@ class SignUp4 extends StatefulWidget {
 class _SignUp4State extends State<SignUp4> {
   final _auth = Auth();
   final ImagePicker _picker = ImagePicker();
+  var isloading = false;
 
   File? image; 
 
@@ -38,8 +39,11 @@ class _SignUp4State extends State<SignUp4> {
   }
 
   void handleSignup() async {
-    print('tes');
     try {
+      setState(() {
+        isloading = true;
+      });
+
       await _auth.regis(
         nama: widget.nama,
         email: widget.email,
@@ -56,7 +60,14 @@ class _SignUp4State extends State<SignUp4> {
         ),
       );
       Duration(seconds: 2);
-      Navigator.popAndPushNamed(context, '/Home');
+      setState(() {
+        isloading = false;
+      });
+
+      Provider.of<DateProvider>(context, listen: false).reset();
+      Provider.of<GenderProvider>(context, listen: false).reset();
+      
+      Navigator.popAndPushNamed(context, '/Signin');
     } catch (e) {
       print(e);
     }
@@ -116,11 +127,11 @@ class _SignUp4State extends State<SignUp4> {
                       Theme.of(context).colorScheme.tertiary,
                     ),
                   ),
-                  child: Text(
+                  child: !isloading ? Text(
                     'Create Your Account',
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.secondary),
-                  ),
+                  ) : CircularProgressIndicator(),
                 ),
               ],
             ),

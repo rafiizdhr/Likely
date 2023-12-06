@@ -9,4 +9,9 @@ class GenderProvider extends ChangeNotifier {
     _selectedGender = gender;
     notifyListeners();
   }
+  
+  void reset() {
+    _selectedGender = '';
+    notifyListeners();
+  }
 }

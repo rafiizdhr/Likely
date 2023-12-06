@@ -47,8 +47,10 @@ class SignUp2 extends StatelessWidget {
             child: Column(
               children: [
                 Text('Your Birth Date',
-                    style: GoogleFonts.poppins(color: Colors.white,
-                        fontSize: 24, fontWeight: FontWeight.bold)),
+                    style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold)),
                 SizedBox(height: 20.0),
                 Container(
                   width: 300,
@@ -85,8 +87,10 @@ class SignUp2 extends StatelessWidget {
                 SizedBox(height: 40.0),
                 Text(
                   'Your Age',
-                  style: GoogleFonts.poppins(color: Colors.white,
-                      fontSize: 24, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 20.0),
                 Consumer<DateProvider>(
@@ -120,18 +124,39 @@ class SignUp2 extends StatelessWidget {
                 Consumer<DateProvider>(
                   builder: (context, dateProvider, _) => ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SignUp3(
-                            nama: nama,
-                            email: email,
-                            password: password,
-                            umur: dateProvider.age,
-                            tgl_lahir: '${dateProvider.selectedDate.day}-${dateProvider.selectedDate.month}-${dateProvider.selectedDate.year}',
+                      if (dateProvider.age > 18) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignUp3(
+                              nama: nama,
+                              email: email,
+                              password: password,
+                              umur: dateProvider.age,
+                              tgl_lahir:
+                                  '${dateProvider.selectedDate.day}-${dateProvider.selectedDate.month}-${dateProvider.selectedDate.year}',
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      }else{
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('You are not old enough!'),
+                              content: Text('Must be atleat 18 years old'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
                     },
                     style: ButtonStyle(
                       fixedSize: MaterialStateProperty.all<Size>(Size(300, 45)),

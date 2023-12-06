@@ -13,6 +13,12 @@ class DateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void reset(){
+    _selectedDate = DateTime.now();
+    _age = 0;
+    notifyListeners();
+  }
+
   void _calculateAge() {
     DateTime currentDate = DateTime.now();
     _age = currentDate.year - _selectedDate.year;
