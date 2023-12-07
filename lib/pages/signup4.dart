@@ -27,7 +27,7 @@ class _SignUp4State extends State<SignUp4> {
   final ImagePicker _picker = ImagePicker();
   var isloading = false;
 
-  File? image; 
+  File? image;
 
   getImage(ImageSource source) async {
     final pickedFile = await _picker.pickImage(source: source);
@@ -45,28 +45,27 @@ class _SignUp4State extends State<SignUp4> {
       });
 
       await _auth.regis(
-        nama: widget.nama,
-        email: widget.email,
-        password: widget.password,
-        gender: widget.gender,
-        tgl_lahir: widget.tgl_lahir,
-        umur: widget.umur,
-        foto: image!
-      );
+          nama: widget.nama,
+          email: widget.email,
+          password: widget.password,
+          gender: widget.gender,
+          tgl_lahir: widget.tgl_lahir,
+          umur: widget.umur,
+          foto: image!);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           duration: Duration(seconds: 1),
           content: Text('Sign Up Successful'),
         ),
       );
-      Duration(seconds: 2);
+      const Duration(seconds: 2);
       setState(() {
         isloading = false;
       });
 
       Provider.of<DateProvider>(context, listen: false).reset();
       Provider.of<GenderProvider>(context, listen: false).reset();
-      
+
       Navigator.popAndPushNamed(context, '/Signin');
     } catch (e) {
       print(e);
@@ -79,7 +78,10 @@ class _SignUp4State extends State<SignUp4> {
     var tinggi = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+      ),
       extendBodyBehindAppBar: true,
       body: Background(
         lebar: lebar,
@@ -96,10 +98,10 @@ class _SignUp4State extends State<SignUp4> {
                       ? Container(
                           width: 200,
                           height: 200,
-                          margin: EdgeInsets.only(bottom: 20),
-                          decoration: BoxDecoration(
+                          margin: const EdgeInsets.only(bottom: 20),
+                          decoration: const BoxDecoration(
                               shape: BoxShape.circle, color: Color(0xffD6D6D6)),
-                          child: Center(
+                          child: const Center(
                             child: Icon(
                               Icons.camera_alt_outlined,
                               size: 40,
@@ -110,28 +112,30 @@ class _SignUp4State extends State<SignUp4> {
                       : Container(
                           width: 200,
                           height: 200,
-                          margin: EdgeInsets.only(bottom: 20),
+                          margin: const EdgeInsets.only(bottom: 20),
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: FileImage(image!),
-                                  fit: BoxFit.cover),
+                                  image: FileImage(image!), fit: BoxFit.cover),
                               shape: BoxShape.circle,
-                              color: Color(0xffD6D6D6)),
+                              color: const Color(0xffD6D6D6)),
                         ),
                 ),
                 ElevatedButton(
                   onPressed: handleSignup,
                   style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all<Size>(Size(300, 45)),
+                    fixedSize:
+                        MaterialStateProperty.all<Size>(const Size(300, 45)),
                     backgroundColor: MaterialStatePropertyAll(
                       Theme.of(context).colorScheme.tertiary,
                     ),
                   ),
-                  child: !isloading ? Text(
-                    'Create Your Account',
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary),
-                  ) : CircularProgressIndicator(),
+                  child: !isloading
+                      ? Text(
+                          'Create Your Account',
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary),
+                        )
+                      : const CircularProgressIndicator(),
                 ),
               ],
             ),

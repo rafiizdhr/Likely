@@ -54,7 +54,7 @@ class _ChatPageState extends State<ChatPage> {
                   List.generate(otherUsers.length, (index) {
                 DataUser userData = otherUsers[index];
                 String chatSnapshot = snapshot.data!.docs[index].id;
-    
+
                 return chatTile(
                   context,
                   userData.nama!,
@@ -63,7 +63,7 @@ class _ChatPageState extends State<ChatPage> {
                   chatSnapshot,
                 );
               }).toList();
-    
+
               return SingleChildScrollView(
                 child: Column(
                   children: [
@@ -179,8 +179,11 @@ class _ChatPageState extends State<ChatPage> {
                 subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      '$senderName: ${lastMessage.message}',
+                    Expanded(
+                      child: Text(
+                        '$senderName: ${lastMessage.message}',
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     Text(
                       lastMessage.timestamp != null

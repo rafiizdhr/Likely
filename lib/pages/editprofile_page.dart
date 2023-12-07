@@ -41,7 +41,7 @@ class _ProfileEditState extends State<ProfileEdit> {
     Provider.of<DateProvider>(context, listen: false).reset();
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         duration: Duration(seconds: 1),
         content: Text('Update Successful'),
       ),
@@ -75,7 +75,7 @@ class _ProfileEditState extends State<ProfileEdit> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Form(
                     key: formKey,
                     child: Column(
@@ -105,8 +105,9 @@ class _ProfileEditState extends State<ProfileEdit> {
                         const SizedBox(
                           height: 30,
                         ),
-                        Wrap(
+                        const Wrap(
                           runSpacing: 20,
+                          spacing: 20,
                           crossAxisAlignment: WrapCrossAlignment.center,
                           direction: Axis.horizontal,
                           children: [
@@ -130,12 +131,15 @@ class _ProfileEditState extends State<ProfileEdit> {
                     ),
                   ),
                 ),
-                SizedBox(height: 40,),
+                const SizedBox(
+                  height: 40,
+                ),
                 Center(
                   child: ElevatedButton(
                       onPressed: handleUpdate,
                       style: ButtonStyle(
-                        fixedSize: MaterialStateProperty.all<Size>(Size(300, 45)),
+                        fixedSize: MaterialStateProperty.all<Size>(
+                            const Size(300, 45)),
                         backgroundColor: MaterialStatePropertyAll(
                           Theme.of(context).colorScheme.tertiary,
                         ),
@@ -217,7 +221,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                   ),
                   suffixIcon: title == 'Date of Birth'
                       ? IconButton(
-                          icon: Icon(Icons.edit),
+                          icon: const Icon(Icons.edit),
                           onPressed: () => _selectDate(context),
                         )
                       : null,

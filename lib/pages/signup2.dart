@@ -37,6 +37,7 @@ class SignUp2 extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
       ),
       extendBodyBehindAppBar: true,
       body: Background(
@@ -51,10 +52,10 @@ class SignUp2 extends StatelessWidget {
                         color: Colors.white,
                         fontSize: 24,
                         fontWeight: FontWeight.bold)),
-                SizedBox(height: 20.0),
+                const SizedBox(height: 20.0),
                 Container(
                   width: 300,
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.secondary,
                     borderRadius: BorderRadius.circular(30),
@@ -64,8 +65,8 @@ class SignUp2 extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Icon(Icons.calendar_month_rounded),
-                          SizedBox(
+                          const Icon(Icons.calendar_month_rounded),
+                          const SizedBox(
                             width: 10,
                           ),
                           Consumer<DateProvider>(
@@ -79,12 +80,12 @@ class SignUp2 extends StatelessWidget {
                       ),
                       IconButton(
                         onPressed: () => _selectDate(context),
-                        icon: Icon(Icons.edit),
+                        icon: const Icon(Icons.edit),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 40.0),
+                const SizedBox(height: 40.0),
                 Text(
                   'Your Age',
                   style: GoogleFonts.poppins(
@@ -92,7 +93,7 @@ class SignUp2 extends StatelessWidget {
                       fontSize: 24,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 20.0),
+                const SizedBox(height: 20.0),
                 Consumer<DateProvider>(
                   builder: (context, dateProvider, _) =>
                       dateProvider.age != null
@@ -118,7 +119,7 @@ class SignUp2 extends StatelessWidget {
                             )
                           : Container(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Consumer<DateProvider>(
@@ -138,19 +139,20 @@ class SignUp2 extends StatelessWidget {
                             ),
                           ),
                         );
-                      }else{
+                      } else {
                         showDialog(
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: Text('You are not old enough!'),
-                              content: Text('Must be atleat 18 years old'),
+                              title: const Text('You are not old enough!'),
+                              content:
+                                  const Text('Must be atleat 18 years old'),
                               actions: [
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text('OK'),
+                                  child: const Text('OK'),
                                 ),
                               ],
                             );
@@ -159,7 +161,8 @@ class SignUp2 extends StatelessWidget {
                       }
                     },
                     style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all<Size>(Size(300, 45)),
+                      fixedSize:
+                          MaterialStateProperty.all<Size>(const Size(300, 45)),
                       backgroundColor: MaterialStatePropertyAll(
                         Theme.of(context).colorScheme.tertiary,
                       ),

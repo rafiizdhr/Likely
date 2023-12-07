@@ -11,13 +11,12 @@ class MyDrawer extends StatelessWidget {
       width: Get.width * 0.5,
       child: Column(
         children: [
-          SizedBox(height: 20),
-          Text(
+          const SizedBox(height: 20),
+          const Text(
             "Setting",
-            style: TextStyle(
-                fontSize: 20, color: Colors.white),
+            style: TextStyle(fontSize: 20, color: Colors.white),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           ListTile(
             title: Icon(isDark ? Icons.dark_mode : Icons.light_mode,
                 color: Colors.white),

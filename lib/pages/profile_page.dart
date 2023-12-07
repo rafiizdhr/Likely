@@ -59,11 +59,11 @@ class _ProfileState extends State<Profile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 EditImageProfile(),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 AccountSettings(),
-                SizedBox(height: 25),
+                const SizedBox(height: 25),
                 DiscoverySettings(),
-                SizedBox(height: 60),
+                const SizedBox(height: 60),
               ],
             ),
           ),
@@ -83,7 +83,7 @@ class _ProfileState extends State<Profile> {
           style: GoogleFonts.poppins(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: Color(0xffA7A7A7)),
+              color: const Color(0xffA7A7A7)),
         ),
         const SizedBox(
           height: 6,
@@ -108,7 +108,7 @@ class _ProfileState extends State<Profile> {
             style: GoogleFonts.poppins(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: Color(0xffA7A7A7)),
+                color: const Color(0xffA7A7A7)),
             decoration: InputDecoration(
               prefixIcon: Padding(
                 padding: const EdgeInsets.only(left: 10),
@@ -141,26 +141,26 @@ class _ProfileState extends State<Profile> {
                         builder: (context, userProvider, _) => Container(
                           width: 120,
                           height: 120,
-                          margin: EdgeInsets.only(bottom: 20),
+                          margin: const EdgeInsets.only(bottom: 20),
                           decoration: BoxDecoration(
                               image: DecorationImage(
                                   image: NetworkImage(
                                       userProvider.currentUsers.foto!),
                                   fit: BoxFit.cover),
                               shape: BoxShape.circle,
-                              color: Color(0xffD6D6D6)),
+                              color: const Color(0xffD6D6D6)),
                         ),
                       )
                     : Container(
                         width: 120,
                         height: 120,
-                        margin: EdgeInsets.only(bottom: 20),
+                        margin: const EdgeInsets.only(bottom: 20),
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: FileImage(selectedImage!),
                                 fit: BoxFit.cover),
                             shape: BoxShape.circle,
-                            color: Color(0xffD6D6D6)),
+                            color: const Color(0xffD6D6D6)),
                       ),
               ),
             ),
@@ -169,7 +169,7 @@ class _ProfileState extends State<Profile> {
       );
 
   Widget AccountSettings() => Container(
-        padding: EdgeInsets.symmetric(horizontal: 23),
+        padding: const EdgeInsets.symmetric(horizontal: 23),
         child: Consumer<DataUserProvider>(
           builder: (context, userProvider, _) => Column(
             children: [
@@ -183,20 +183,20 @@ class _ProfileState extends State<Profile> {
                           fontWeight: FontWeight.w600)),
                   GestureDetector(
                     onTap: () {
-                      Navigator.popAndPushNamed(context, "/ProfileEdit");
+                      Navigator.pushNamed(context, "/ProfileEdit");
                     },
                     child: Text("Edit",
                         style: GoogleFonts.poppins(
-                            color: Color.fromARGB(255, 8, 111, 196),
+                            color: const Color.fromARGB(255, 8, 111, 196),
                             fontSize: 17)),
                   ),
                 ],
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               kontener("Name", userProvider.currentUsers.nama!),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               kontener("Date of Birth", userProvider.currentUsers.tgl_lahir!),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               kontener("Umur", userProvider.currentUsers.umur!.toString()),
             ],
           ),
@@ -204,7 +204,7 @@ class _ProfileState extends State<Profile> {
       );
 
   Widget DiscoverySettings() => Container(
-        padding: EdgeInsets.symmetric(horizontal: 23),
+        padding: const EdgeInsets.symmetric(horizontal: 23),
         child: Column(
           children: [
             Row(
@@ -217,9 +217,9 @@ class _ProfileState extends State<Profile> {
                         fontWeight: FontWeight.w600)),
               ],
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               width: MediaQuery.of(context).size.width,
               height: 45,
               decoration: BoxDecoration(
@@ -227,11 +227,11 @@ class _ProfileState extends State<Profile> {
                 border: Border.all(width: 2, color: Colors.white),
               ),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Show Me",
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
@@ -240,8 +240,10 @@ class _ProfileState extends State<Profile> {
                     ),
                     Consumer<DataUserProvider>(
                       builder: (ctx, user, _) => Text(
-                        user.currentUsers.jenis_kelamin == 'Males' ? "Women" : "Men",
-                        style: TextStyle(
+                        user.currentUsers.jenis_kelamin == 'Male'
+                            ? "Women"
+                            : "Men",
+                        style: const TextStyle(
                             fontWeight: FontWeight.w400, color: Colors.white),
                       ),
                     ),
@@ -249,9 +251,9 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               width: MediaQuery.of(context).size.width,
               height: 85,
               decoration: BoxDecoration(
@@ -261,21 +263,22 @@ class _ProfileState extends State<Profile> {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Age Range",
                           style: TextStyle(
                               fontWeight: FontWeight.w500, color: Colors.white),
                         ),
                         Consumer<DataUserProvider>(
-                          builder: (ctx, user, _) =>
-                          Text(
-                            "${user.currentUsers.umur} - ${user.currentUsers.umur!+10}",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600, color: Colors.white),
+                          builder: (ctx, user, _) => Text(
+                            "${user.currentUsers.umur} - ${user.currentUsers.umur! + 10}",
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
                           ),
                         ),
                       ],
@@ -290,7 +293,7 @@ class _ProfileState extends State<Profile> {
 
   Container kontener(String kiri, String kanan) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       width: MediaQuery.of(context).size.width,
       height: 45,
       decoration: BoxDecoration(
@@ -304,12 +307,12 @@ class _ProfileState extends State<Profile> {
           children: [
             Text(
               kiri,
-              style:
-                  TextStyle(fontWeight: FontWeight.w800, color: Colors.white),
+              style: const TextStyle(
+                  fontWeight: FontWeight.w800, color: Colors.white),
             ),
             Text(
               kanan,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
           ],
         ),

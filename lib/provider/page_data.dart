@@ -13,11 +13,11 @@ class PageData extends ChangeNotifier {
   Widget display() {
     switch (_idxPage) {
       case 0:
-        return HomeScreen(); // Replace with your HomeScreen widget
+        return const HomeScreen(); // Replace with your HomeScreen widget
       case 1:
-        return ChatPage(); // Replace with your ChatScreen widget
+        return const ChatPage(); // Replace with your ChatScreen widget
       case 2:
-        return Profile(); // Replace with your ProfileScreen widget
+        return const Profile(); // Replace with your ProfileScreen widget
       default:
         return Container(); // Default case, replace with appropriate widget
     }

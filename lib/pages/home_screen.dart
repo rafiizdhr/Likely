@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       extendBody: true,
       extendBodyBehindAppBar: true,
-      endDrawer: MyDrawer(),
+      endDrawer: const MyDrawer(),
       appBar: AppBar(
         foregroundColor: Colors.white,
         toolbarHeight: 80,
@@ -79,7 +79,8 @@ class _SwiperState extends State<Swiper> {
         .where((doc) =>
             doc.id != currentUserId &&
             !likedUserIds.contains(doc.id) &&
-            doc.get('jenis_kelamin') != user.jenis_kelamin && doc.get('umur') < user.umur!+10)
+            doc.get('jenis_kelamin') != user.jenis_kelamin &&
+            doc.get('umur') < user.umur! + 10)
         .map((doc) {
       return DataUser(
         id: doc.get('id'),
@@ -150,11 +151,11 @@ class _SwiperState extends State<Swiper> {
       future: fetchData(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(
+          return const Center(
             child: Text(
               'There\'s no user left',
               textAlign: TextAlign.center,
@@ -220,14 +221,14 @@ class Kartu extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
-          BoxShadow(color: Colors.black12, spreadRadius: 2, blurRadius: 30),
+          const BoxShadow(
+              color: Colors.black12, spreadRadius: 2, blurRadius: 30),
         ],
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
         child: Stack(
           children: [
-
             Container(
               width: double.infinity,
               height: double.infinity,
@@ -266,7 +267,7 @@ class Kartu extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 12),
+                  const SizedBox(height: 12),
                   Text(
                     '${user.umur} Year',
                     style: GoogleFonts.poppins(
