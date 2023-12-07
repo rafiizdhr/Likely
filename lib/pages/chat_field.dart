@@ -168,7 +168,7 @@ class _ChatFieldState extends State<ChatField> {
                   right: 50, top: 10, left: 10, bottom: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Colors.blue,
+                color: Theme.of(context).colorScheme.primary
               ),
               child: Stack(
                 clipBehavior: Clip.none,
