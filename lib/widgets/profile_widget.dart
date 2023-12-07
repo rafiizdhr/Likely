@@ -12,7 +12,7 @@ Widget ProfileWidget(BuildContext context, {String subtitle = "Nama, Umur"}) {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 130),
+            const SizedBox(height: 130),
             Text(
               subtitle,
               style: GoogleFonts.poppins(

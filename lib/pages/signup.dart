@@ -42,7 +42,7 @@ class _SignupState extends State<Signup> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Sign Up',
                     style: TextStyle(
                       fontSize: 32,
@@ -50,11 +50,11 @@ class _SignupState extends State<Signup> {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   // Input email
                   Container(
                     width: 300,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(30),
@@ -73,10 +73,10 @@ class _SignupState extends State<Signup> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Container(
                     width: 300,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(30),
@@ -95,11 +95,11 @@ class _SignupState extends State<Signup> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   // Input password
                   Container(
                     width: 300,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(30),
@@ -118,11 +118,11 @@ class _SignupState extends State<Signup> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   // Input konfirmasi password
                   Container(
                     width: 300,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(30),
@@ -141,7 +141,7 @@ class _SignupState extends State<Signup> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   // Tombol "Sign Up"
                   ElevatedButton(
                     onPressed: () {
@@ -150,14 +150,14 @@ class _SignupState extends State<Signup> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: Text('Error'),
-                              content: Text('Invalid email format'),
+                              title: const Text('Error'),
+                              content: const Text('Invalid email format'),
                               actions: [
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text('OK'),
+                                  child: const Text('OK'),
                                 ),
                               ],
                             );
@@ -183,14 +183,14 @@ class _SignupState extends State<Signup> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: Text('Error'),
-                              content: Text('Password tidak cocok'),
+                              title: const Text('Error'),
+                              content: const Text('Password tidak cocok'),
                               actions: [
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text('OK'),
+                                  child: const Text('OK'),
                                 ),
                               ],
                             );
@@ -199,7 +199,8 @@ class _SignupState extends State<Signup> {
                       }
                     },
                     style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all<Size>(Size(300, 45)),
+                      fixedSize:
+                          MaterialStateProperty.all<Size>(const Size(300, 45)),
                       backgroundColor: MaterialStatePropertyAll(
                         Theme.of(context).colorScheme.tertiary,
                       ),
@@ -210,13 +211,13 @@ class _SignupState extends State<Signup> {
                           color: Theme.of(context).colorScheme.secondary),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   // Pilihan untuk mendaftar (signup)
                   TextButton(
                     onPressed: () {
                       Navigator.popAndPushNamed(context, '/Signin');
                     },
-                    child: Text(
+                    child: const Text(
                       'Telah memiliki akun? Sign In',
                       style: TextStyle(
                         color: Colors.white,

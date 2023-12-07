@@ -39,7 +39,7 @@ class _SigninState extends State<Signin> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Sign In',
                     style: TextStyle(
                       fontSize: 32,
@@ -47,11 +47,11 @@ class _SigninState extends State<Signin> {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   // Input email
                   Container(
                     width: 300,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(30),
@@ -70,11 +70,11 @@ class _SigninState extends State<Signin> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   // Input password
                   Container(
                     width: 300,
-                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.secondary,
                       borderRadius: BorderRadius.circular(30),
@@ -93,10 +93,9 @@ class _SigninState extends State<Signin> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   // Tombol "Sign In"
                   ElevatedButton(
-                    
                     onPressed: () async {
                       String email = emailController.text;
                       String password = passwordController.text;
@@ -106,7 +105,7 @@ class _SigninState extends State<Signin> {
                           email: email,
                           password: password,
                         );
-                        
+
                         Navigator.popAndPushNamed(context, "/Home");
                       } catch (e) {
                         // Handle specific Firebase authentication errors
@@ -129,14 +128,14 @@ class _SigninState extends State<Signin> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: Text('Error'),
+                              title: const Text('Error'),
                               content: Text(errorMessage),
                               actions: [
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text('OK'),
+                                  child: const Text('OK'),
                                 ),
                               ],
                             );
@@ -145,17 +144,19 @@ class _SigninState extends State<Signin> {
                       }
                     },
                     style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all<Size>(Size(300, 45)),
+                      fixedSize:
+                          MaterialStateProperty.all<Size>(const Size(300, 45)),
                       backgroundColor: MaterialStatePropertyAll(
                         Theme.of(context).colorScheme.tertiary,
                       ),
                     ),
                     child: Text(
                       'Sign In',
-                      style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   // Pilihan untuk mendaftar (signup)
                   TextButton(
                     onPressed: () {
@@ -164,7 +165,7 @@ class _SigninState extends State<Signin> {
                         '/Signup',
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       'Belum memiliki akun? Sign Up',
                       style: TextStyle(
                         color: Colors.white,

@@ -14,12 +14,16 @@ class ThemeModeData extends ChangeNotifier {
     return ThemeData(
       brightness: dark ? Brightness.dark : Brightness.light,
       colorScheme: ColorScheme.fromSeed(
-        seedColor: Color(0xFF7512B2),
+        seedColor: const Color(0xFF7512B2),
         brightness: dark ? Brightness.dark : Brightness.light,
-        primary: dark ? Color(0xFF35155D) : Color.fromARGB(255, 224, 93, 248),
-        onPrimary: dark ? Color.fromARGB(255, 105, 29, 198) : Color.fromARGB(255, 146, 60, 199),
-        secondary: dark ? Color.fromARGB(255, 28, 11, 48) : Colors.white,
-        tertiary: dark ? Colors.white : Color.fromARGB(255, 28, 11, 48),
+        primary: dark
+            ? const Color(0xFF35155D)
+            : const Color.fromARGB(255, 224, 93, 248),
+        onPrimary: dark
+            ? const Color.fromARGB(255, 105, 29, 198)
+            : const Color.fromARGB(255, 146, 60, 199),
+        secondary: dark ? const Color.fromARGB(255, 28, 11, 48) : Colors.white,
+        tertiary: dark ? Colors.white : const Color.fromARGB(255, 28, 11, 48),
       ),
     );
   }

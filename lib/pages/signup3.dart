@@ -22,7 +22,10 @@ class SignUp3 extends StatelessWidget {
     var tinggi = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.transparent),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+      ),
       extendBodyBehindAppBar: true,
       body: Background(
         lebar: lebar,
@@ -33,11 +36,13 @@ class SignUp3 extends StatelessWidget {
               children: [
                 Text(
                   'Select Your Gender',
-                  style: GoogleFonts.poppins(color: Colors.white,
-                      fontSize: 24, fontWeight: FontWeight.bold),
+                  style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 40),
-                Row(
+                const SizedBox(height: 40),
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SelectableBox(
@@ -56,25 +61,25 @@ class SignUp3 extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Consumer<GenderProvider>(
                   builder: (context, genderProvider, _) => ElevatedButton(
                     onPressed: () {
-                      if(genderProvider.selectedGender == ''){
+                      if (genderProvider.selectedGender == '') {
                         showDialog(
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: Text('Select Your Gender!'),
-                              content: Text('Gender must be selected'),
+                              title: const Text('Select Your Gender!'),
+                              content: const Text('Gender must be selected'),
                               actions: [
                                 TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text('OK'),
+                                  child: const Text('OK'),
                                 ),
                               ],
                             );
@@ -86,17 +91,19 @@ class SignUp3 extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => SignUp4(
-                              nama: nama,
-                              email: email,
-                              password: password,
-                              umur: umur,
-                              gender: genderProvider.selectedGender,
-                              tgl_lahir: tgl_lahir,),
+                            nama: nama,
+                            email: email,
+                            password: password,
+                            umur: umur,
+                            gender: genderProvider.selectedGender,
+                            tgl_lahir: tgl_lahir,
+                          ),
                         ),
                       );
                     },
                     style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all<Size>(Size(300, 45)),
+                      fixedSize:
+                          MaterialStateProperty.all<Size>(const Size(300, 45)),
                       backgroundColor: MaterialStatePropertyAll(
                         Theme.of(context).colorScheme.tertiary,
                       ),
