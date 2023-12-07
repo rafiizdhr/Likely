@@ -15,6 +15,7 @@ class _ProfileState extends State<Profile> {
 
   void initState() {
     super.initState();
+    print(FirebaseAuth.instance.currentUser!.uid);
 
     Provider.of<DataUserProvider>(context, listen: false)
         .fetchCurrentUser(FirebaseAuth.instance.currentUser!.uid);

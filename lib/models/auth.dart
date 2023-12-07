@@ -40,7 +40,7 @@ class Auth {
           'id': user.uid,
           'nama': nama,
           'umur': umur,
-          'tgl_lahir': umur,
+          'tgl_lahir': tgl_lahir,
           'jenis_kelamin': gender,
           'foto': url_foto,
         },
