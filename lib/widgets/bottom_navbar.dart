@@ -19,7 +19,7 @@ class BottomNavBar extends StatelessWidget {
       extendBodyBehindAppBar: true,
       body: Provider.of<PageData>(context).display(),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(40),
             topLeft: Radius.circular(40),
@@ -33,7 +33,7 @@ class BottomNavBar extends StatelessWidget {
           ],
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(40.0),
             topRight: Radius.circular(40.0),
           ),
@@ -44,8 +44,10 @@ class BottomNavBar extends StatelessWidget {
             onTap: (value) {
               Provider.of<PageData>(context, listen: false).changeIndex(value);
             },
+            selectedLabelStyle: GoogleFonts.poppins(),
+            unselectedLabelStyle: GoogleFonts.poppins(),
             currentIndex: Provider.of<PageData>(context, listen: false).idxPage,
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: "Home",

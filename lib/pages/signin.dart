@@ -106,7 +106,7 @@ class _SigninState extends State<Signin> {
                           email: email,
                           password: password,
                         );
-
+                        
                         Navigator.popAndPushNamed(context, "/Home");
                       } catch (e) {
                         // Handle specific Firebase authentication errors

@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:appinio_swiper/appinio_swiper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 part 'chat_page.dart';
 part 'chat_field.dart';

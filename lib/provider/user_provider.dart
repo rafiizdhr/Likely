@@ -60,5 +60,26 @@ class DataUserProvider extends ChangeNotifier {
     } catch (error) {
       print("Error fetching user data: $error");
     }
+    return null;
+  }
+
+  Future<DataUser?> updateDataUser({
+    required String userId,
+    required String nama,
+    required String tgl_lahir,
+    required String gender,
+    required int umur,
+  }) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+        'nama': nama,
+        'tgl_lahir': tgl_lahir,
+        'jenis_kelamin': gender,
+        'umur': umur,
+      });
+    } catch (error) {
+      print("Error updating user data: $error");
+    }
+    return null;
   }
 }

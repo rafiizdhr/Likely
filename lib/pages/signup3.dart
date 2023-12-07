@@ -41,11 +41,15 @@ class SignUp3 extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SelectableBox(
+                      lebar: 150,
+                      tinggi: 150,
                       label: 'Male',
                       icon: Icons.male,
                       gender: 'Male',
                     ),
                     SelectableBox(
+                      lebar: 150,
+                      tinggi: 150,
                       label: 'Female',
                       icon: Icons.female,
                       gender: 'Female',
@@ -58,6 +62,26 @@ class SignUp3 extends StatelessWidget {
                 Consumer<GenderProvider>(
                   builder: (context, genderProvider, _) => ElevatedButton(
                     onPressed: () {
+                      if(genderProvider.selectedGender == ''){
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Select Your Gender!'),
+                              content: Text('Gender must be selected'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                        return;
+                      }
                       Navigator.push(
                         context,
                         MaterialPageRoute(

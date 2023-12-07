@@ -16,6 +16,7 @@ dependencies:
   get: ^4.6.5
   google_fonts: ^6.1.0
   image_picker: ^1.0.4
+  intl: ^0.18.1
   provider: null
 
 dev_dependencies:
