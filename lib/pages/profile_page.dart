@@ -15,9 +15,26 @@ class _ProfileState extends State<Profile> {
 
   void initState() {
     super.initState();
-    print(FirebaseAuth.instance.currentUser!.uid);
-    Provider.of<DataUserProvider>(context, listen: false)
+    fetchuser().whenComplete(
+      () => changedategender(),
+    );
+  }
+
+  Future<void> fetchuser() async {
+    await Provider.of<DataUserProvider>(context, listen: false)
         .fetchCurrentUser(FirebaseAuth.instance.currentUser!.uid);
+  }
+
+  void changedategender() {
+    DateFormat format = DateFormat("dd-MM-yyyy");
+    Provider.of<DateProvider>(context, listen: false).selectedDate =
+        format.parse(Provider.of<DataUserProvider>(context, listen: false)
+            .currentUsers
+            .tgl_lahir!);
+    Provider.of<GenderProvider>(context, listen: false).setGender(
+        Provider.of<DataUserProvider>(context, listen: false)
+            .currentUsers
+            .jenis_kelamin!);
   }
 
   getImage(ImageSource source) async {
@@ -165,7 +182,9 @@ class _ProfileState extends State<Profile> {
                           fontSize: 17,
                           fontWeight: FontWeight.w600)),
                   GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, "/ProfileEdit"),
+                    onTap: () {
+                      Navigator.popAndPushNamed(context, "/ProfileEdit");
+                    },
                     child: Text("Edit",
                         style: GoogleFonts.poppins(
                             color: Color.fromARGB(255, 8, 111, 196),
@@ -175,8 +194,6 @@ class _ProfileState extends State<Profile> {
               ),
               SizedBox(height: 12),
               kontener("Name", userProvider.currentUsers.nama!),
-              SizedBox(height: 12),
-              kontener("Phone Number", userProvider.currentUsers.nama!),
               SizedBox(height: 12),
               kontener("Date of Birth", userProvider.currentUsers.tgl_lahir!),
               SizedBox(height: 12),
@@ -209,7 +226,7 @@ class _ProfileState extends State<Profile> {
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(width: 2, color: Colors.white),
               ),
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -221,10 +238,12 @@ class _ProfileState extends State<Profile> {
                         color: Colors.white,
                       ),
                     ),
-                    Text(
-                      "Women",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400, color: Colors.white),
+                    Consumer<DataUserProvider>(
+                      builder: (ctx, user, _) => Text(
+                        user.currentUsers.jenis_kelamin == 'Males' ? "Women" : "Men",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400, color: Colors.white),
+                      ),
                     ),
                   ],
                 ),
@@ -251,10 +270,13 @@ class _ProfileState extends State<Profile> {
                           style: TextStyle(
                               fontWeight: FontWeight.w500, color: Colors.white),
                         ),
-                        Text(
-                          "22 - 34",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, color: Colors.white),
+                        Consumer<DataUserProvider>(
+                          builder: (ctx, user, _) =>
+                          Text(
+                            "${user.currentUsers.umur} - ${user.currentUsers.umur!+10}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, color: Colors.white),
+                          ),
                         ),
                       ],
                     ),

@@ -29,64 +29,64 @@ class _ChatPageState extends State<ChatPage> {
     var otherUsers = Provider.of<DataUserProvider>(context).otherUsers;
     var lebar = MediaQuery.of(context).size.width;
     var tinggi = MediaQuery.of(context).size.height;
-    return SafeArea(
-      child: Scaffold(
-        body: Background(
-          lebar: lebar,
-          tinggi: tinggi,
-          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: chatsStream,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                return Center(
-                  child: Text(
-                    'No Matches',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
+    return Scaffold(
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      body: Background(
+        lebar: lebar,
+        tinggi: tinggi,
+        child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+          stream: chatsStream,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+              return Center(
+                child: Text(
+                  'No Matches',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              );
+            } else {
+              List<Widget> chatTiles =
+                  List.generate(otherUsers.length, (index) {
+                DataUser userData = otherUsers[index];
+                String chatSnapshot = snapshot.data!.docs[index].id;
+    
+                return chatTile(
+                  context,
+                  userData.nama!,
+                  userData.id!,
+                  userData.foto!,
+                  chatSnapshot,
                 );
-              } else {
-                List<Widget> chatTiles =
-                    List.generate(otherUsers.length, (index) {
-                  DataUser userData = otherUsers[index];
-                  String chatSnapshot = snapshot.data!.docs[index].id;
-
-                  return chatTile(
-                    context,
-                    userData.nama!,
-                    userData.id!,
-                    userData.foto!,
-                    chatSnapshot,
-                  );
-                }).toList();
-
-                return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Chat",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      ...chatTiles,
-                    ],
-                  ),
-                );
-              }
-            },
-          ),
+              }).toList();
+    
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Chat",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    ...chatTiles,
+                  ],
+                ),
+              );
+            }
+          },
         ),
       ),
     );

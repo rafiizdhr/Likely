@@ -4,11 +4,15 @@ class SelectableBox extends StatelessWidget {
   final String label;
   final IconData icon;
   final String gender;
+  final double lebar;
+  final double tinggi;
 
   const SelectableBox({
     required this.label,
     required this.icon,
     required this.gender,
+    required this.lebar,
+    required this.tinggi,
   });
 
   @override
@@ -22,8 +26,8 @@ class SelectableBox extends StatelessWidget {
           bool isSelected = genderProvider.selectedGender == gender;
 
           return Container(
-            width: 150,
-            height: 150,
+            width: lebar,
+            height: tinggi,
             padding: EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               color:  isSelected ? Colors.white : Theme.of(context).colorScheme.onPrimary,

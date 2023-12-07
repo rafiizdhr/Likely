@@ -9,10 +9,46 @@ class ProfileEdit extends StatefulWidget {
 
 class _ProfileEditState extends State<ProfileEdit> {
   TextEditingController nameController = TextEditingController();
-  TextEditingController homeController = TextEditingController();
-  TextEditingController businessController = TextEditingController();
-  TextEditingController shopController = TextEditingController();
+  TextEditingController birthController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  String? currentId;
+
+  void initState() {
+    DataUser user =
+        Provider.of<DataUserProvider>(context, listen: false).currentUsers;
+    nameController.text = user.nama!;
+    currentId = user.id;
+
+    DateTime birth =
+        Provider.of<DateProvider>(context, listen: false).selectedDate;
+
+    birthController.text = '${birth.day}-${birth.month}-${birth.year}';
+    nameController.text = user.nama!;
+    super.initState();
+  }
+
+  void handleUpdate() {
+    Provider.of<DataUserProvider>(context, listen: false).updateDataUser(
+      userId: currentId!,
+      nama: nameController.text,
+      tgl_lahir: birthController.text,
+      gender:
+          Provider.of<GenderProvider>(context, listen: false).selectedGender,
+      umur: Provider.of<DateProvider>(context, listen: false).age,
+    );
+
+    Provider.of<GenderProvider>(context, listen: false).reset();
+    Provider.of<DateProvider>(context, listen: false).reset();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: Duration(seconds: 1),
+        content: Text('Update Successful'),
+      ),
+    );
+
+    Navigator.popAndPushNamed(context, '/Home');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +73,9 @@ class _ProfileEditState extends State<ProfileEdit> {
           children: [
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 23),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Form(
                     key: formKey,
                     child: Column(
@@ -61,35 +96,55 @@ class _ProfileEditState extends State<ProfileEdit> {
                           height: 10,
                         ),
                         TextFieldWidget('Date of Birth', Icons.nine_mp_outlined,
-                            homeController, (String? input) {
+                            birthController, (String? input) {
                           if (input!.isEmpty) {
                             return 'Age is required!';
                           }
                           return null;
-                        }, onTap: () async {}, readOnly: false),
+                        }, onTap: () async {}, readOnly: true),
                         const SizedBox(
-                          height: 10,
+                          height: 30,
                         ),
-                        TextFieldWidget(
-                            'Location', Icons.location_city, businessController,
-                            (String? input) {
-                          if (input!.isEmpty) {
-                            return 'Location is required!';
-                          }
-                        }, onTap: () async {}, readOnly: false),
-                        const SizedBox(
-                          height: 10,
+                        Wrap(
+                          runSpacing: 20,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          direction: Axis.horizontal,
+                          children: [
+                            SelectableBox(
+                              lebar: 170,
+                              tinggi: 80,
+                              label: 'Male',
+                              icon: Icons.male,
+                              gender: 'Male',
+                            ),
+                            SelectableBox(
+                              lebar: 170,
+                              tinggi: 80,
+                              label: 'Female',
+                              icon: Icons.female,
+                              gender: 'Female',
+                            ),
+                          ],
                         ),
-                        TextFieldWidget('Gender', Icons.people, shopController,
-                            (String? input) {
-                          if (input!.isEmpty) {
-                            return 'Gender required!';
-                          }
-                          return null;
-                        }, onTap: () async {}, readOnly: false),
                       ],
                     ),
                   ),
+                ),
+                SizedBox(height: 40,),
+                Center(
+                  child: ElevatedButton(
+                      onPressed: handleUpdate,
+                      style: ButtonStyle(
+                        fixedSize: MaterialStateProperty.all<Size>(Size(300, 45)),
+                        backgroundColor: MaterialStatePropertyAll(
+                          Theme.of(context).colorScheme.tertiary,
+                        ),
+                      ),
+                      child: Text(
+                        'Save',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary),
+                      )),
                 ),
               ],
             ),
@@ -99,53 +154,80 @@ class _ProfileEditState extends State<ProfileEdit> {
     );
   }
 
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime currentDate = DateTime.now();
+    DateTime initialDate =
+        context.read<DateProvider>().selectedDate ?? currentDate;
+
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(1900),
+      lastDate: currentDate,
+    );
+
+    if (picked != null) {
+      context.read<DateProvider>().selectedDate = picked;
+      birthController.text = '${picked.day}-${picked.month}-${picked.year}';
+    }
+  }
+
   TextFieldWidget(String title, IconData iconData,
       TextEditingController controller, Function validator,
       {Function? onTap, bool readOnly = false}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Color(0xffA7A7A7)),
-        ),
-        const SizedBox(
-          height: 6,
-        ),
-        Container(
-          width: Get.width,
-          // height: 50,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    spreadRadius: 1,
-                    blurRadius: 1)
-              ],
-              borderRadius: BorderRadius.circular(8)),
-          child: TextFormField(
-            readOnly: readOnly,
-            onTap: () => onTap!(),
-            validator: (input) => validator(input),
-            controller: controller,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
             style: GoogleFonts.poppins(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: Color(0xffA7A7A7)),
-            decoration: InputDecoration(
-              prefixIcon: Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Icon(iconData, color: CupertinoColors.systemPurple),
-              ),
-              border: InputBorder.none,
-            ),
+                fontSize: 14, fontWeight: FontWeight.w600, color: Colors.white),
           ),
-        )
-      ],
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            width: Get.width,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      spreadRadius: 1,
+                      blurRadius: 1)
+                ],
+                borderRadius: BorderRadius.circular(25)),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: TextFormField(
+                readOnly: readOnly,
+                onTap: () => onTap!(),
+                validator: (input) => validator(input),
+                controller: controller,
+                style: GoogleFonts.poppins(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).colorScheme.primary),
+                decoration: InputDecoration(
+                  prefixIcon: Icon(
+                    iconData,
+                    color: CupertinoColors.systemPurple,
+                  ),
+                  suffixIcon: title == 'Date of Birth'
+                      ? IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () => _selectDate(context),
+                        )
+                      : null,
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

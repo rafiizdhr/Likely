@@ -1,7 +1,7 @@
 part of 'providers.dart';
 
 class ThemeModeData extends ChangeNotifier {
-  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode _themeMode = ThemeMode.light;
   ThemeMode get themeMode => _themeMode;
   bool get isDarkModeActive => _themeMode == ThemeMode.dark;
 

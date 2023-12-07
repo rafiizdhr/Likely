@@ -15,16 +15,12 @@ class MyDrawer extends StatelessWidget {
           Text(
             "Setting",
             style: TextStyle(
-                fontSize: 20, color: Theme.of(context).colorScheme.tertiary),
+                fontSize: 20, color: Colors.white),
           ),
           SizedBox(height: 20),
           ListTile(
-            leading: Icon(isDark ? Icons.dark_mode : Icons.light_mode,
-                color: Theme.of(context).colorScheme.tertiary),
-            title: Text(
-              isDark ? "Dark Mode" : "Light Mode",
-              style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
-            ),
+            title: Icon(isDark ? Icons.dark_mode : Icons.light_mode,
+                color: Colors.white),
             trailing: Switch(
               activeColor: Colors.white,
               inactiveThumbColor: Colors.black,

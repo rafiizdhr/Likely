@@ -5,14 +5,14 @@ Widget ProfileWidget(BuildContext context, {String subtitle = "Nama, Umur"}) {
     width: Get.width,
     height: Get.height * 2,
     child: Container(
-        height: Get.height * 0.5,
+        height: Get.height,
         width: Get.width,
         margin: EdgeInsets.only(bottom: Get.height * 0.005),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 160),
+            SizedBox(height: 130),
             Text(
               subtitle,
               style: GoogleFonts.poppins(
