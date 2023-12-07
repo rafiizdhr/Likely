@@ -184,7 +184,7 @@ class _SignupState extends State<Signup> {
                           builder: (context) {
                             return AlertDialog(
                               title: Text('Error'),
-                              content: Text('Password tidak cocok'),
+                              content: Text('Password not same'),
                               actions: [
                                 TextButton(
                                   onPressed: () {
@@ -217,7 +217,7 @@ class _SignupState extends State<Signup> {
                       Navigator.popAndPushNamed(context, '/Signin');
                     },
                     child: Text(
-                      'Telah memiliki akun? Sign In',
+                      'Already have account? Sign In',
                       style: TextStyle(
                         color: Colors.white,
                       ),

@@ -165,7 +165,7 @@ class _SigninState extends State<Signin> {
                       );
                     },
                     child: Text(
-                      'Belum memiliki akun? Sign Up',
+                      'Are you new to Likely? Sign Up',
                       style: TextStyle(
                         color: Colors.white,
                       ),

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'pages/pages.dart';
+import 'pages/introduction.dart';
 import 'widgets/widgets.dart';
 import 'provider/providers.dart';
 
@@ -48,13 +49,14 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             routes: {
               "/Home": (ctx) => BottomNavBar(),
+              "/Intro": (ctx) => Onboarding(),
               "/Signup": (ctx) => Signup(),
               "/Signin": (ctx) => Signin(),
               "/Profile": (ctx) => Profile(),
               "/ProfileEdit": (ctx) => ProfileEdit(),
               "/chat": (ctx) => ChatField(),
             },
-            initialRoute: "/Signin",
+            initialRoute: "/Intro",
           );
         },
       ),
