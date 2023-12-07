@@ -107,6 +107,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                         ),
                         Wrap(
                           runSpacing: 20,
+                          spacing: 20,
                           crossAxisAlignment: WrapCrossAlignment.center,
                           direction: Axis.horizontal,
                           children: [
