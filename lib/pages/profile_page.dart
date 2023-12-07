@@ -183,7 +183,7 @@ class _ProfileState extends State<Profile> {
                           fontWeight: FontWeight.w600)),
                   GestureDetector(
                     onTap: () {
-                      Navigator.popAndPushNamed(context, "/ProfileEdit");
+                      Navigator.pushNamed(context, "/ProfileEdit");
                     },
                     child: Text("Edit",
                         style: GoogleFonts.poppins(
