@@ -17,7 +17,7 @@ class _ChatFieldState extends State<ChatField> {
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
     receiverUserID = arguments['otherUserId'];
-    print(arguments['chatId']);
+    String foto = arguments['foto'];
 
     var lebar = MediaQuery.of(context).size.width;
     var tinggi = MediaQuery.of(context).size.height;
@@ -26,7 +26,7 @@ class _ChatFieldState extends State<ChatField> {
         title: Row(
           children: [
             CircleAvatar(
-              backgroundColor: Colors.amber,
+              backgroundImage: NetworkImage(foto),
             ),
             SizedBox(width: 10),
             Text(arguments['chatName']),

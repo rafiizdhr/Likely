@@ -16,7 +16,6 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     print(FirebaseAuth.instance.currentUser!.uid);
-
     Provider.of<DataUserProvider>(context, listen: false)
         .fetchCurrentUser(FirebaseAuth.instance.currentUser!.uid);
   }
@@ -130,7 +129,7 @@ class _ProfileState extends State<Profile> {
                               image: DecorationImage(
                                   image: NetworkImage(
                                       userProvider.currentUsers.foto!),
-                                  fit: BoxFit.fill),
+                                  fit: BoxFit.cover),
                               shape: BoxShape.circle,
                               color: Color(0xffD6D6D6)),
                         ),
@@ -142,7 +141,7 @@ class _ProfileState extends State<Profile> {
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: FileImage(selectedImage!),
-                                fit: BoxFit.fill),
+                                fit: BoxFit.cover),
                             shape: BoxShape.circle,
                             color: Color(0xffD6D6D6)),
                       ),
